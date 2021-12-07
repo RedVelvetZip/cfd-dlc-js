@@ -43,6 +43,7 @@ describe("dlc tests", () => {
 
     const fundTx = CfdUtils.DecodeRawTransaction(dlctxs.fundTxHex);
     const fundTxId = fundTx.txid;
+    console.log('fundTx.vout', fundTx.vout);
     const fundInputAmount = Number(fundTx.vout[0].value);
 
     const localAdaptorPairs = CfdDlcUtils.CreateCetAdaptorSignatures(
