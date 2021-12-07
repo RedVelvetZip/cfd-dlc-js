@@ -2,12 +2,12 @@
   "name": "cfd-dlc-js",
   "version": "0.0.25",
   "description": "cfd-dlc node.js api",
-  "domain": "p2pderivatives",
+  "domain": "atomicfinance",
   "main": "index.js",
   "types": "index.d.ts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cryptogarageinc/cfd-dlc-js.git"
+    "url": "https://github.com/atomicfinance/cfd-dlc-js.git"
   },
   "binary": {
     "napi_versions": [
