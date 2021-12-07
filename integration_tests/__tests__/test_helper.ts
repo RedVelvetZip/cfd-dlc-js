@@ -9,13 +9,18 @@ export class DlcTestHelper {
   readonly bobWallet;
   readonly oracleKey =
     "85e9cf11bd33a4ccc6abf6c5078e2a7e44aff9c456934976cb86cffe3e1e13dc";
-  readonly oracleKValue =
-    "8864177b5ec22563e9b325c11726a270d259b7adc16a2051d9d9256eede64c79";
-  readonly oraclePubkey = CfdUtils.GetPubkeyFromPrivkey(this.oracleKey);
-  readonly oracleRValue = CfdDlcUtils.GetSchnorrPublicNonce(this.oracleKValue);
+  readonly oracleKValues = [
+    "8864177b5ec22563e9b325c11726a270d259b7adc16a2051d9d9256eede64c79",
+    "9e1bc6dc95ce931903cc2df67640cf6cca94ddd96aab0b847780d644e46cfae3",
+  ];
+  readonly oraclePubkey = CfdUtils.GetSchnorrPubkeyFromPrivkey(this.oracleKey);
+  readonly oracleRValues = this.oracleKValues.map((x) =>
+    CfdUtils.GetSchnorrPubkeyFromPrivkey(x)
+  );
 
-  readonly winMessages = ["WIN"];
-  readonly loseMessages = ["LOSE"];
+  readonly winMessages = ["1", "0"];
+  readonly loseMessages = ["0", "1"];
+  readonly messages = [this.winMessages, this.loseMessages];
   readonly winAmount = 9990000;
   readonly loseAmount = 10000;
   readonly collateral = (this.winAmount + this.loseAmount) / 2;
@@ -46,7 +51,9 @@ export class DlcTestHelper {
     this.aliceFundPrivkey = await WalletUtils.GetNewPrivateKeyFromWallet(
       this.aliceWallet
     );
-    this.aliceFundPubkey = CfdUtils.GetPubkeyFromPrivkey(this.aliceFundPrivkey);
+    this.aliceFundPubkey = CfdUtils.GetPubkeyFromPrivkey(
+      this.aliceFundPrivkey
+    );
     this.aliceSweepPrivkey = await WalletUtils.GetNewPrivateKeyFromWallet(
       this.aliceWallet
     );
@@ -87,54 +94,56 @@ export class DlcTestHelper {
     this.aliceInputPrv = CfdUtils.GetPrivkeyFromWif(aliceInputWif);
     const bobUtxos = await this.bobWallet.utxoService.listUnspent();
     this.bobInput = bobUtxos[0];
-    const bobInputWif = await this.bobWallet.dumpPrivkey(this.bobInput.address);
+    const bobInputWif = await this.bobWallet.dumpPrivkey(
+      this.bobInput.address
+    );
     this.bobInputPrv = CfdUtils.GetPrivkeyFromWif(bobInputWif);
   }
 
   public CreateDlcTransactions() {
     const reqJson: cfddlcjs.CreateDlcTransactionsRequest = {
-      outcomes: [
+      payouts: [
         {
           local: this.winAmount,
           remote: this.loseAmount,
-          messages: this.winMessages,
         },
         {
           local: this.loseAmount,
           remote: this.winAmount,
-          messages: this.loseMessages,
         },
       ],
-      oracleRPoints: [this.oracleRValue],
-      oraclePubkey: this.oraclePubkey,
       localFundPubkey: this.aliceFundPubkey,
       remoteFundPubkey: this.bobFundPubkey,
-      localSweepPubkey: this.aliceSweepPubkey,
-      remoteSweepPubkey: this.bobSweepPubkey,
       localInputAmount: this.aliceInput.amount,
       localCollateralAmount: this.collateral,
       remoteInputAmount: this.bobInput.amount,
       remoteCollateralAmount: this.collateral,
-      csvDelay: this.csvDelay,
       localInputs: [
         {
           txid: this.aliceInput.txid,
           vout: this.aliceInput.vout,
+          maxWitnessLength: 108,
         },
       ],
-      localChangeAddress: this.aliceChangeAddress,
+      localChangeScriptPubkey: CfdUtils.GetAddressScript(
+        this.aliceChangeAddress
+      ),
       remoteInputs: [
         {
           txid: this.bobInput.txid,
           vout: this.bobInput.vout,
+          maxWitnessLength: 108,
         },
       ],
-      remoteChangeAddress: this.bobChangeAddress,
-      maturityTime: 1579072156,
+      remoteChangeScriptPubkey: CfdUtils.GetAddressScript(
+        this.bobChangeAddress
+      ),
       refundLocktime: 1579082156,
       feeRate: 2,
-      localFinalAddress: this.aliceFinalAddress,
-      remoteFinalAddress: this.bobFinalAddress,
+      localFinalScriptPubkey: CfdUtils.GetAddressScript(
+        this.aliceFinalAddress
+      ),
+      remoteFinalScriptPubkey: CfdUtils.GetAddressScript(this.bobFinalAddress),
     };
 
     return cfddlcjs.CreateDlcTransactions(reqJson);

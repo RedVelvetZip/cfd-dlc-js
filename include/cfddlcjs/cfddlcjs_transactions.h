@@ -16,6 +16,7 @@
 
 #include "cfdcore/cfdcore_hdwallet.h"
 #include "cfdcore/cfdcore_key.h"
+#include "cfdcore/cfdcore_schnorrsig.h"
 #include "cfddlcjs/cfddlcjs_struct.h"
 
 namespace cfd {
@@ -23,10 +24,13 @@ namespace dlc {
 namespace js {
 namespace api {
 
+using cfd::core::ByteData256;
 using cfd::core::ExtPrivkey;
 using cfd::core::ExtPubkey;
 using cfd::core::Privkey;
 using cfd::core::Pubkey;
+using cfd::core::SchnorrPubkey;
+using cfd::core::SchnorrSignature;
 
 class DlcTransactionsApi {
  public:
@@ -45,50 +49,34 @@ class DlcTransactionsApi {
       const CreateCetRequestStruct& request);
   static CreateRefundTransactionResponseStruct CreateRefundTransaction(
       const CreateRefundTransactionRequestStruct& request);
-  static CreateClosingTransactionResponseStruct CreateClosingTransaction(
-      const CreateClosingTransactionRequestStruct& request);
-  static SignClosingTransactionResponseStruct SignClosingTransaction(
-      const SignClosingTransactionRequestStruct& request);
   static CreateDlcTransactionsResponseStruct CreateDlcTransactions(
       const CreateDlcTransactionsRequestStruct& request);
-  static CreatePenaltyTransactionResponseStruct CreatePenaltyTransaction(
-      const CreatePenaltyTransactionRequestStruct& request);
-  static CreateMutualClosingTransactionResponseStruct
-  CreateMutualClosingTransaction(
-      const CreateMutualClosingTransactionRequestStruct& request);
-  static GetRawCetSignatureResponseStruct GetRawCetSignature(
-      const GetRawCetSignatureRequestStruct& request);
-  static GetRawCetSignaturesResponseStruct GetRawCetSignatures(
-      const GetRawCetSignaturesRequestStruct& request);
-  static GetRawMutualClosingTxSignatureResponseStruct
-  GetRawMutualClosingTxSignature(
-      const GetRawMutualClosingTxSignatureRequestStruct& request);
+  static CreateCetAdaptorSignatureResponseStruct CreateCetAdaptorSignature(
+      const CreateCetAdaptorSignatureRequestStruct& request);
+  static CreateCetAdaptorSignaturesResponseStruct CreateCetAdaptorSignatures(
+      const CreateCetAdaptorSignaturesRequestStruct& request);
   static GetRawRefundTxSignatureResponseStruct GetRawRefundTxSignature(
       const GetRawRefundTxSignatureRequestStruct& request);
-  static AddSignaturesToCetResponseStruct AddSignaturesToCet(
-      const AddSignaturesToCetRequestStruct& request);
-  static VerifyCetSignatureResponseStruct VerifyCetSignature(
-      const VerifyCetSignatureRequestStruct& request);
-  static VerifyCetSignaturesResponseStruct VerifyCetSignatures(
-      const VerifyCetSignaturesRequestStruct& request);
-  static AddSignaturesToMutualClosingTxResponseStruct
-  AddSignaturesToMutualClosingTx(
-      const AddSignaturesToMutualClosingTxRequestStruct& request);
-  static VerifyMutualClosingTxSignatureResponseStruct
-  VerifyMutualClosingTxSignature(
-      const VerifyMutualClosingTxSignatureRequestStruct& request);
+  static SignCetResponseStruct SignCet(const SignCetRequestStruct& request);
+  static VerifyCetAdaptorSignatureResponseStruct VerifyCetAdaptorSignature(
+      const VerifyCetAdaptorSignatureRequestStruct& request);
+  static VerifyCetAdaptorSignaturesResponseStruct VerifyCetAdaptorSignatures(
+      const VerifyCetAdaptorSignaturesRequestStruct& request);
   static AddSignaturesToRefundTxResponseStruct AddSignaturesToRefundTx(
       const AddSignaturesToRefundTxRequestStruct& request);
   static VerifyRefundTxSignatureResponseStruct VerifyRefundTxSignature(
       const VerifyRefundTxSignatureRequestStruct& request);
-  static SchnorrSignResponseStruct SchnorrSign(
-      const SchnorrSignRequestStruct& request);
-  static GetSchnorrPublicNonceResponseStruct GetSchnorrPublicNonce(
-      const GetSchnorrPublicNonceRequestStruct& request);
 
  private:
   DlcTransactionsApi();
   static std::vector<Pubkey> ParsePubkeys(std::vector<std::string> input);
+  static std::vector<SchnorrPubkey> ParseSchnorrPubkeys(
+      std::vector<std::string> input);
+  static std::vector<SchnorrSignature> ParseSchnorrSignatures(
+      std::vector<std::string> input);
+  static std::vector<ByteData256> HashMessages(std::vector<std::string> input);
+  static std::vector<std::vector<ByteData256>> HashMessages(
+      std::vector<MessagesStruct> input);
 };
 
 }  // namespace api

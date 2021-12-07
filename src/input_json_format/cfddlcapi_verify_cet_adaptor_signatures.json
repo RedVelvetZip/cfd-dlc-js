@@ -1,12 +1,17 @@
 {
   "namespace": ["cfd", "dlc", "js", "api", "json"],
   "request": {
-    ":class": "VerifyCetSignaturesRequest",
+    ":class": "VerifyCetAdaptorSignaturesRequest",
     ":class:comment": "Verify a set of signatures for a set of CET",
     "cetsHex": [""],
-    "signatures": [""],
+    "adaptorPairs": [
+      { ":class": "AdaptorPair", "signature": "", "proof": "" }
+    ],
+    "messagesList": [{ ":class": "Messages", "messages": [""] }],
     "localFundPubkey": "",
     "remoteFundPubkey": "",
+    "oraclePubkey": "",
+    "oracleRValues": [""],
     "fundTxId": "",
     "fundVout": 0,
     "fundVout:type": "uint32_t",
@@ -16,7 +21,7 @@
     "verifyRemote": true
   },
   "response": {
-    ":class": "VerifyCetSignaturesResponse",
+    ":class": "VerifyCetAdaptorSignaturesResponse",
     "valid": false
   }
 }

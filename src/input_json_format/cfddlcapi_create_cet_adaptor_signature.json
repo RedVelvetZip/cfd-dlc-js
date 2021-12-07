@@ -1,0 +1,25 @@
+{
+  "namespace": ["cfd", "dlc", "js", "api", "json"],
+  "request": {
+    ":class": "CreateCetAdaptorSignatureRequest",
+    ":class:comment": "Create an adaptor signature for a CET",
+    "cetHex": "",
+    "privkey": "",
+    "fundTxId": "",
+    "fundVout": 0,
+    "fundVout:type": "uint32_t",
+    "fundVout:require": "optional",
+    "localFundPubkey": "",
+    "remoteFundPubkey": "",
+    "oraclePubkey": "",
+    "oracleRValues": [""],
+    "fundInputAmount": 0,
+    "fundInputAmount:type": "uint64_t",
+    "messages": [""]
+  },
+  "response": {
+    ":class": "CreateCetAdaptorSignatureResponse",
+    "signature": "",
+    "proof": ""
+  }
+}
