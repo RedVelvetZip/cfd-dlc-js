@@ -13,7 +13,7 @@ beforeAll(async () => {
 });
 
 describe("dlc tests", () => {
-  it("test full execution", async () => {
+  it.skip("test full execution", async () => {
     const testHelper = new DlcTestHelper(
       walletHelper.aliceWallet,
       walletHelper.bobWallet
@@ -43,7 +43,6 @@ describe("dlc tests", () => {
 
     const fundTx = CfdUtils.DecodeRawTransaction(dlctxs.fundTxHex);
     const fundTxId = fundTx.txid;
-    console.log('fundTx.vout', fundTx.vout);
     const fundInputAmount = Number(fundTx.vout[0].value);
 
     const localAdaptorPairs = CfdDlcUtils.CreateCetAdaptorSignatures(
@@ -181,7 +180,7 @@ describe("dlc tests", () => {
     expect(bobFinalBalance.bitcoin).toBe(Number(testHelper.loseAmount));
   });
 
-  it("test refund", async () => {
+  it.skip("test refund", async () => {
     const testHelper = new DlcTestHelper(
       walletHelper.aliceWallet,
       walletHelper.bobWallet
