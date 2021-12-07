@@ -144,6 +144,10 @@ export class DlcTestHelper {
         this.aliceFinalAddress
       ),
       remoteFinalScriptPubkey: CfdUtils.GetAddressScript(this.bobFinalAddress),
+      localPayoutSerialId: 0,
+      localChangeSerialId: 0,
+      remotePayoutSerialId: 1,
+      remoteChangeSerialId: 1,
     };
 
     return cfddlcjs.CreateDlcTransactions(reqJson);
