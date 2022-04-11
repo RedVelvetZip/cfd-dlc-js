@@ -34,14 +34,6 @@ workflows:
           runner: default-runner
           <<: *tag_only
       - prebuild:
-          name: prebuild-macos
-          runner: macos-builder
-          setup:
-            - run:
-                name: Install cmake Homebrew
-                command: brew install cmake
-          <<: *tag_only
-      - prebuild:
           name: prebuild-windows
           runner:
             name: win/default
@@ -61,7 +53,6 @@ workflows:
           <<: *tag_only
           requires:
             - prebuild-linux
-            - prebuild-macos
             - prebuild-windows
 
 jobs:
