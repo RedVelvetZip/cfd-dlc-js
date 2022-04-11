@@ -130,6 +130,9 @@ jobs:
       - checkout
       - steps: << parameters.setup >>
       - run:
+          name: Setup no postinstall
+          command: touch .no-postinstall
+      - run:
           name: Install modules
           command: npm ci
       - run:
