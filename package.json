@@ -1,6 +1,6 @@
 {
   "name": "cfd-dlc-js",
-  "version": "0.0.29",
+  "version": "0.0.30",
   "description": "cfd-dlc node.js api",
   "domain": "atomicfinance",
   "main": "index.js",
