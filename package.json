@@ -1,6 +1,6 @@
 {
   "name": "cfd-dlc-js",
-  "version": "0.0.33",
+  "version": "0.0.34",
   "description": "cfd-dlc node.js api",
   "domain": "atomicfinance",
   "main": "index.js",
@@ -16,7 +16,7 @@
     ]
   },
   "scripts": {
-    "postinstall": "if [ ! -f .no-postinstall ];then npm run install:prod;fi",
+    "postinstall": "/bin/sh postinstall.sh",
     "install:prod": "prebuild-install --force --verbose && mkdir -p wrap_js/build && cp -r build/* wrap_js/build/ || run-s install_cmake",
     "install_cmake": "run-s cmake_clean cmake_install_configure cmake_compile",
     "prebuild_all": "run-s prebuild_nodejs prebuild_electron",
