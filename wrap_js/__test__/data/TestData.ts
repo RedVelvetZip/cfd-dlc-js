@@ -38,10 +38,12 @@ export const RemoteInputPubkey = CfdUtils.GetPubkeyFromPrivkey(
 );
 export const LocalFundPrivkey2 =
   "0000000000000000000000000000000000000000000000000000000000000007";
-export const LocalFundPubkey2 = CfdUtils.GetPubkeyFromPrivkey(LocalFundPrivkey2);
+export const LocalFundPubkey2 = CfdUtils.GetPubkeyFromPrivkey(
+  LocalFundPrivkey2);
 export const RemoteFundPrivkey2 =
   "0000000000000000000000000000000000000000000000000000000000000008";
-export const RemoteFundPubkey2 = CfdUtils.GetPubkeyFromPrivkey(RemoteFundPrivkey2);
+export const RemoteFundPubkey2 = CfdUtils.GetPubkeyFromPrivkey(
+  RemoteFundPrivkey2);
 export const LocalInputAmount = 5000000000;
 export const RemoteInputAmount = 5000000000;
 export const LocalCollateralAmount = 100000000;
