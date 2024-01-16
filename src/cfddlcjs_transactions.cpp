@@ -110,6 +110,65 @@ CreateFundTransactionResponseStruct DlcTransactionsApi::CreateFundTransaction(
   return result;
 }
 
+CreateBatchFundTransactionResponseStruct DlcTransactionsApi::CreateBatchFundTransaction(
+    const CreateBatchFundTransactionRequestStruct& request) {
+  auto call_func = [](const CreateBatchFundTransactionRequestStruct& request)
+      -> CreateBatchFundTransactionResponseStruct {
+    CreateBatchFundTransactionResponseStruct response;
+
+    std::vector<Pubkey> local_pubkeys;
+    std::vector<Pubkey> remote_pubkeys;
+    std::vector<Amount> output_amounts;
+    std::vector<uint64_t> output_serial_ids;
+
+    std::vector<TxInputInfo> local_inputs;
+
+    for (auto input_request : request.local_inputs) {
+      local_inputs.push_back(ParseTxInRequest(input_request));
+    }
+
+    std::vector<TxInputInfo> remote_inputs;
+
+    for (auto input_request : request.remote_inputs) {
+      remote_inputs.push_back(ParseTxInRequest(input_request));
+    }
+
+    auto local_change = GetChangeOutput(request.local_change.address,
+                                        request.local_change.amount);
+    auto remote_change = GetChangeOutput(request.remote_change.address,
+                                         request.remote_change.amount);
+
+    for (size_t i = 0; i < request.local_pubkeys.size(); ++i) {
+      local_pubkeys.push_back(Pubkey(request.local_pubkeys[i]));
+      remote_pubkeys.push_back(Pubkey(request.remote_pubkeys[i]));
+      output_amounts.push_back(Amount::CreateBySatoshiAmount(request.output_amounts[i]));
+      output_serial_ids.push_back(request.output_serial_ids[i]);
+    }
+
+    uint64_t lock_time = request.lock_time;
+    uint64_t local_serial_id = request.local_serial_id;
+    uint64_t remote_serial_id = request.remote_serial_id;
+
+    auto option_premium = Amount::CreateBySatoshiAmount(request.option_premium);
+    auto option_dest =
+        request.option_dest == "" ? Address() : Address(request.option_dest);
+
+    auto transaction = DlcManager::CreateBatchFundTransaction(
+        local_pubkeys, remote_pubkeys, output_amounts, local_inputs, local_change,
+        remote_inputs, remote_change, output_serial_ids,
+        local_serial_id, remote_serial_id, lock_time, option_dest, option_premium);
+
+    response.hex = transaction.GetHex();
+    return response;
+  };
+
+  CreateBatchFundTransactionResponseStruct result;
+  result = ExecuteStructApi<CreateBatchFundTransactionRequestStruct,
+                            CreateBatchFundTransactionResponseStruct>(
+      request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
 SignFundTransactionResponseStruct DlcTransactionsApi::SignFundTransaction(
     const SignFundTransactionRequestStruct& request) {
   auto call_func = [](const SignFundTransactionRequestStruct& request)

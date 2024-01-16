@@ -679,6 +679,191 @@ class TxInInfoRequest
 };
 
 // ------------------------------------------------------------------------
+// TxOutRequest
+// ------------------------------------------------------------------------
+/**
+ * @brief JSON-API (TxOutRequest) class
+ */
+class TxOutRequest
+  : public cfd::core::JsonClassBase<TxOutRequest> {
+ public:
+  TxOutRequest() {
+    CollectFieldName();
+  }
+  virtual ~TxOutRequest() {
+    // do nothing
+  }
+  /**
+   * @brief collect field name.
+   */
+  static void CollectFieldName();
+
+  /**
+   * @brief Get of amount
+   * @return amount
+   */
+  uint64_t GetAmount() const {
+    return amount_;
+  }
+  /**
+   * @brief Set to amount
+   * @param[in] amount    setting value.
+   */
+  void SetAmount(  // line separate
+    const uint64_t& amount) {  // NOLINT
+    this->amount_ = amount;
+  }
+  /**
+   * @brief Get data type of amount
+   * @return Data type of amount
+   */
+  static std::string GetAmountFieldType() {
+    return "uint64_t";
+  }
+  /**
+   * @brief Get json string of amount field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetAmountString(  // line separate
+      const TxOutRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.amount_);
+  }
+  /**
+   * @brief Set json object to amount field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetAmountString(  // line separate
+      TxOutRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.amount_, json_value);
+  }
+
+  /**
+   * @brief Get of address
+   * @return address
+   */
+  std::string GetAddress() const {
+    return address_;
+  }
+  /**
+   * @brief Set to address
+   * @param[in] address    setting value.
+   */
+  void SetAddress(  // line separate
+    const std::string& address) {  // NOLINT
+    this->address_ = address;
+  }
+  /**
+   * @brief Get data type of address
+   * @return Data type of address
+   */
+  static std::string GetAddressFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of address field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetAddressString(  // line separate
+      const TxOutRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.address_);
+  }
+  /**
+   * @brief Set json object to address field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetAddressString(  // line separate
+      TxOutRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.address_, json_value);
+  }
+
+  /**
+   * @brief Set ignore item.
+   * @param[in] key   ignore target key name.
+   */
+  void SetIgnoreItem(const std::string& key) {
+    ignore_items.insert(key);
+  }
+
+  /**
+   * @brief Convert struct to class.
+   * @param[in] data   struct data.
+   */
+  void ConvertFromStruct(
+      const TxOutRequestStruct& data);
+
+  /**
+   * @brief Convert class to struct.
+   * @return  struct data.
+   */
+  TxOutRequestStruct ConvertToStruct()  const;
+
+ protected:
+  /**
+   * @brief definition type of Map table.
+   */
+  using TxOutRequestMapTable =
+    cfd::core::JsonTableMap<TxOutRequest>;
+
+  /**
+   * @brief Get JSON mapping object.
+   * @return JSON mapping object.
+   * @see cfd::core::JsonClassBase::GetJsonMapper()
+   */
+  virtual const TxOutRequestMapTable& GetJsonMapper() const {  // NOLINT
+    return json_mapper;
+  }
+  /**
+   * @brief Get item lists of JSON mapping.
+   * Fetch a list of target variable names in the order of definition.
+   * @return Item lists of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetJsonItemList()
+   */
+  virtual const std::vector<std::string>& GetJsonItemList() const {
+    return item_list;
+  }
+  /**
+   * @brief Get ignore item lists of JSON mapping.
+   * Ignore the target variable at Serialize.
+   * @return Item list of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetIgnoreItem()
+   */
+  virtual const std::set<std::string>& GetIgnoreItem() const {
+    return ignore_items;
+  }
+
+ private:
+ /**
+  * @brief JsonFunctionMap table
+  */
+  static TxOutRequestMapTable json_mapper;
+  /**
+   * @brief field name list.
+   */
+  static std::vector<std::string> item_list;
+  /**
+   * @brief ignore item list.
+   */
+  std::set<std::string> ignore_items;
+
+  /**
+   * @brief JsonAPI(amount) value
+   */
+  uint64_t amount_ = 0;
+  /**
+   * @brief JsonAPI(address) value
+   */
+  std::string address_ = "";
+};
+
+// ------------------------------------------------------------------------
 // AddSignatureToFundTransactionRequest
 // ------------------------------------------------------------------------
 /**
@@ -1639,6 +1824,901 @@ class AddSignaturesToRefundTxResponse
   * @brief JsonFunctionMap table
   */
   static AddSignaturesToRefundTxResponseMapTable json_mapper;
+  /**
+   * @brief field name list.
+   */
+  static std::vector<std::string> item_list;
+  /**
+   * @brief ignore item list.
+   */
+  std::set<std::string> ignore_items;
+
+  /**
+   * @brief JsonAPI(hex) value
+   */
+  std::string hex_ = "";
+};
+
+// ------------------------------------------------------------------------
+// CreateBatchFundTransactionRequest
+// ------------------------------------------------------------------------
+/**
+ * @brief JSON-API (CreateBatchFundTransactionRequest) class
+ */
+class CreateBatchFundTransactionRequest
+  : public cfd::core::JsonClassBase<CreateBatchFundTransactionRequest> {
+ public:
+  CreateBatchFundTransactionRequest() {
+    CollectFieldName();
+  }
+  virtual ~CreateBatchFundTransactionRequest() {
+    // do nothing
+  }
+  /**
+   * @brief collect field name.
+   */
+  static void CollectFieldName();
+
+  /**
+   * @brief Get of localPubkeys.
+   * @return localPubkeys
+   */
+  JsonValueVector<std::string>& GetLocalPubkeys() {  // NOLINT
+    return local_pubkeys_;
+  }
+  /**
+   * @brief Set to localPubkeys.
+   * @param[in] local_pubkeys    setting value.
+   */
+  void SetLocalPubkeys(  // line separate
+      const JsonValueVector<std::string>& local_pubkeys) {  // NOLINT
+    this->local_pubkeys_ = local_pubkeys;
+  }
+  /**
+   * @brief Get data type of localPubkeys.
+   * @return Data type of localPubkeys.
+   */
+  static std::string GetLocalPubkeysFieldType() {
+    return "JsonValueVector<std::string>";  // NOLINT
+  }
+  /**
+   * @brief Get json string of localPubkeys field.
+   * @param[in,out] obj     class object
+   * @return JSON string.
+   */
+  static std::string GetLocalPubkeysString(  // line separate
+      const CreateBatchFundTransactionRequest& obj) {  // NOLINT
+    // Do not set to const, because substitution of member variables
+    // may occur in pre / post processing inside Serialize
+    return obj.local_pubkeys_.Serialize();
+  }
+  /**
+   * @brief Set json object to localPubkeys field.
+   * @param[in,out] obj     class object
+   * @param[in] json_value  JSON object
+   */
+  static void SetLocalPubkeysString(  // line separate
+      CreateBatchFundTransactionRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    obj.local_pubkeys_.DeserializeUniValue(json_value);
+  }
+
+  /**
+   * @brief Get of remotePubkeys.
+   * @return remotePubkeys
+   */
+  JsonValueVector<std::string>& GetRemotePubkeys() {  // NOLINT
+    return remote_pubkeys_;
+  }
+  /**
+   * @brief Set to remotePubkeys.
+   * @param[in] remote_pubkeys    setting value.
+   */
+  void SetRemotePubkeys(  // line separate
+      const JsonValueVector<std::string>& remote_pubkeys) {  // NOLINT
+    this->remote_pubkeys_ = remote_pubkeys;
+  }
+  /**
+   * @brief Get data type of remotePubkeys.
+   * @return Data type of remotePubkeys.
+   */
+  static std::string GetRemotePubkeysFieldType() {
+    return "JsonValueVector<std::string>";  // NOLINT
+  }
+  /**
+   * @brief Get json string of remotePubkeys field.
+   * @param[in,out] obj     class object
+   * @return JSON string.
+   */
+  static std::string GetRemotePubkeysString(  // line separate
+      const CreateBatchFundTransactionRequest& obj) {  // NOLINT
+    // Do not set to const, because substitution of member variables
+    // may occur in pre / post processing inside Serialize
+    return obj.remote_pubkeys_.Serialize();
+  }
+  /**
+   * @brief Set json object to remotePubkeys field.
+   * @param[in,out] obj     class object
+   * @param[in] json_value  JSON object
+   */
+  static void SetRemotePubkeysString(  // line separate
+      CreateBatchFundTransactionRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    obj.remote_pubkeys_.DeserializeUniValue(json_value);
+  }
+
+  /**
+   * @brief Get of outputAmounts.
+   * @return outputAmounts
+   */
+  JsonValueVector<int64_t>& GetOutputAmounts() {  // NOLINT
+    return output_amounts_;
+  }
+  /**
+   * @brief Set to outputAmounts.
+   * @param[in] output_amounts    setting value.
+   */
+  void SetOutputAmounts(  // line separate
+      const JsonValueVector<int64_t>& output_amounts) {  // NOLINT
+    this->output_amounts_ = output_amounts;
+  }
+  /**
+   * @brief Get data type of outputAmounts.
+   * @return Data type of outputAmounts.
+   */
+  static std::string GetOutputAmountsFieldType() {
+    return "JsonValueVector<int64_t>";  // NOLINT
+  }
+  /**
+   * @brief Get json string of outputAmounts field.
+   * @param[in,out] obj     class object
+   * @return JSON string.
+   */
+  static std::string GetOutputAmountsString(  // line separate
+      const CreateBatchFundTransactionRequest& obj) {  // NOLINT
+    // Do not set to const, because substitution of member variables
+    // may occur in pre / post processing inside Serialize
+    return obj.output_amounts_.Serialize();
+  }
+  /**
+   * @brief Set json object to outputAmounts field.
+   * @param[in,out] obj     class object
+   * @param[in] json_value  JSON object
+   */
+  static void SetOutputAmountsString(  // line separate
+      CreateBatchFundTransactionRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    obj.output_amounts_.DeserializeUniValue(json_value);
+  }
+
+  /**
+   * @brief Get of localInputs.
+   * @return localInputs
+   */
+  JsonObjectVector<TxInInfoRequest, TxInInfoRequestStruct>& GetLocalInputs() {  // NOLINT
+    return local_inputs_;
+  }
+  /**
+   * @brief Set to localInputs.
+   * @param[in] local_inputs    setting value.
+   */
+  void SetLocalInputs(  // line separate
+      const JsonObjectVector<TxInInfoRequest, TxInInfoRequestStruct>& local_inputs) {  // NOLINT
+    this->local_inputs_ = local_inputs;
+  }
+  /**
+   * @brief Get data type of localInputs.
+   * @return Data type of localInputs.
+   */
+  static std::string GetLocalInputsFieldType() {
+    return "JsonObjectVector<TxInInfoRequest, TxInInfoRequestStruct>";  // NOLINT
+  }
+  /**
+   * @brief Get json string of localInputs field.
+   * @param[in,out] obj     class object
+   * @return JSON string.
+   */
+  static std::string GetLocalInputsString(  // line separate
+      const CreateBatchFundTransactionRequest& obj) {  // NOLINT
+    // Do not set to const, because substitution of member variables
+    // may occur in pre / post processing inside Serialize
+    return obj.local_inputs_.Serialize();
+  }
+  /**
+   * @brief Set json object to localInputs field.
+   * @param[in,out] obj     class object
+   * @param[in] json_value  JSON object
+   */
+  static void SetLocalInputsString(  // line separate
+      CreateBatchFundTransactionRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    obj.local_inputs_.DeserializeUniValue(json_value);
+  }
+
+  /**
+   * @brief Get of localChange.
+   * @return localChange
+   */
+  TxOutRequest& GetLocalChange() {  // NOLINT
+    return local_change_;
+  }
+  /**
+   * @brief Set to localChange.
+   * @param[in] local_change    setting value.
+   */
+  void SetLocalChange(  // line separate
+      const TxOutRequest& local_change) {  // NOLINT
+    this->local_change_ = local_change;
+  }
+  /**
+   * @brief Get data type of localChange.
+   * @return Data type of localChange.
+   */
+  static std::string GetLocalChangeFieldType() {
+    return "TxOutRequest";  // NOLINT
+  }
+  /**
+   * @brief Get json string of localChange field.
+   * @param[in,out] obj     class object
+   * @return JSON string.
+   */
+  static std::string GetLocalChangeString(  // line separate
+      const CreateBatchFundTransactionRequest& obj) {  // NOLINT
+    // Do not set to const, because substitution of member variables
+    // may occur in pre / post processing inside Serialize
+    return obj.local_change_.Serialize();
+  }
+  /**
+   * @brief Set json object to localChange field.
+   * @param[in,out] obj     class object
+   * @param[in] json_value  JSON object
+   */
+  static void SetLocalChangeString(  // line separate
+      CreateBatchFundTransactionRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    obj.local_change_.DeserializeUniValue(json_value);
+  }
+
+  /**
+   * @brief Get of remoteInputs.
+   * @return remoteInputs
+   */
+  JsonObjectVector<TxInInfoRequest, TxInInfoRequestStruct>& GetRemoteInputs() {  // NOLINT
+    return remote_inputs_;
+  }
+  /**
+   * @brief Set to remoteInputs.
+   * @param[in] remote_inputs    setting value.
+   */
+  void SetRemoteInputs(  // line separate
+      const JsonObjectVector<TxInInfoRequest, TxInInfoRequestStruct>& remote_inputs) {  // NOLINT
+    this->remote_inputs_ = remote_inputs;
+  }
+  /**
+   * @brief Get data type of remoteInputs.
+   * @return Data type of remoteInputs.
+   */
+  static std::string GetRemoteInputsFieldType() {
+    return "JsonObjectVector<TxInInfoRequest, TxInInfoRequestStruct>";  // NOLINT
+  }
+  /**
+   * @brief Get json string of remoteInputs field.
+   * @param[in,out] obj     class object
+   * @return JSON string.
+   */
+  static std::string GetRemoteInputsString(  // line separate
+      const CreateBatchFundTransactionRequest& obj) {  // NOLINT
+    // Do not set to const, because substitution of member variables
+    // may occur in pre / post processing inside Serialize
+    return obj.remote_inputs_.Serialize();
+  }
+  /**
+   * @brief Set json object to remoteInputs field.
+   * @param[in,out] obj     class object
+   * @param[in] json_value  JSON object
+   */
+  static void SetRemoteInputsString(  // line separate
+      CreateBatchFundTransactionRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    obj.remote_inputs_.DeserializeUniValue(json_value);
+  }
+
+  /**
+   * @brief Get of remoteChange.
+   * @return remoteChange
+   */
+  TxOutRequest& GetRemoteChange() {  // NOLINT
+    return remote_change_;
+  }
+  /**
+   * @brief Set to remoteChange.
+   * @param[in] remote_change    setting value.
+   */
+  void SetRemoteChange(  // line separate
+      const TxOutRequest& remote_change) {  // NOLINT
+    this->remote_change_ = remote_change;
+  }
+  /**
+   * @brief Get data type of remoteChange.
+   * @return Data type of remoteChange.
+   */
+  static std::string GetRemoteChangeFieldType() {
+    return "TxOutRequest";  // NOLINT
+  }
+  /**
+   * @brief Get json string of remoteChange field.
+   * @param[in,out] obj     class object
+   * @return JSON string.
+   */
+  static std::string GetRemoteChangeString(  // line separate
+      const CreateBatchFundTransactionRequest& obj) {  // NOLINT
+    // Do not set to const, because substitution of member variables
+    // may occur in pre / post processing inside Serialize
+    return obj.remote_change_.Serialize();
+  }
+  /**
+   * @brief Set json object to remoteChange field.
+   * @param[in,out] obj     class object
+   * @param[in] json_value  JSON object
+   */
+  static void SetRemoteChangeString(  // line separate
+      CreateBatchFundTransactionRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    obj.remote_change_.DeserializeUniValue(json_value);
+  }
+
+  /**
+   * @brief Get of feeRate
+   * @return feeRate
+   */
+  int64_t GetFeeRate() const {
+    return fee_rate_;
+  }
+  /**
+   * @brief Set to feeRate
+   * @param[in] fee_rate    setting value.
+   */
+  void SetFeeRate(  // line separate
+    const int64_t& fee_rate) {  // NOLINT
+    this->fee_rate_ = fee_rate;
+  }
+  /**
+   * @brief Get data type of feeRate
+   * @return Data type of feeRate
+   */
+  static std::string GetFeeRateFieldType() {
+    return "int64_t";
+  }
+  /**
+   * @brief Get json string of feeRate field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetFeeRateString(  // line separate
+      const CreateBatchFundTransactionRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.fee_rate_);
+  }
+  /**
+   * @brief Set json object to feeRate field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetFeeRateString(  // line separate
+      CreateBatchFundTransactionRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.fee_rate_, json_value);
+  }
+
+  /**
+   * @brief Get of outputSerialIds.
+   * @return outputSerialIds
+   */
+  JsonValueVector<int64_t>& GetOutputSerialIds() {  // NOLINT
+    return output_serial_ids_;
+  }
+  /**
+   * @brief Set to outputSerialIds.
+   * @param[in] output_serial_ids    setting value.
+   */
+  void SetOutputSerialIds(  // line separate
+      const JsonValueVector<int64_t>& output_serial_ids) {  // NOLINT
+    this->output_serial_ids_ = output_serial_ids;
+  }
+  /**
+   * @brief Get data type of outputSerialIds.
+   * @return Data type of outputSerialIds.
+   */
+  static std::string GetOutputSerialIdsFieldType() {
+    return "JsonValueVector<int64_t>";  // NOLINT
+  }
+  /**
+   * @brief Get json string of outputSerialIds field.
+   * @param[in,out] obj     class object
+   * @return JSON string.
+   */
+  static std::string GetOutputSerialIdsString(  // line separate
+      const CreateBatchFundTransactionRequest& obj) {  // NOLINT
+    // Do not set to const, because substitution of member variables
+    // may occur in pre / post processing inside Serialize
+    return obj.output_serial_ids_.Serialize();
+  }
+  /**
+   * @brief Set json object to outputSerialIds field.
+   * @param[in,out] obj     class object
+   * @param[in] json_value  JSON object
+   */
+  static void SetOutputSerialIdsString(  // line separate
+      CreateBatchFundTransactionRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    obj.output_serial_ids_.DeserializeUniValue(json_value);
+  }
+
+  /**
+   * @brief Get of localSerialId
+   * @return localSerialId
+   */
+  uint64_t GetLocalSerialId() const {
+    return local_serial_id_;
+  }
+  /**
+   * @brief Set to localSerialId
+   * @param[in] local_serial_id    setting value.
+   */
+  void SetLocalSerialId(  // line separate
+    const uint64_t& local_serial_id) {  // NOLINT
+    this->local_serial_id_ = local_serial_id;
+  }
+  /**
+   * @brief Get data type of localSerialId
+   * @return Data type of localSerialId
+   */
+  static std::string GetLocalSerialIdFieldType() {
+    return "uint64_t";
+  }
+  /**
+   * @brief Get json string of localSerialId field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetLocalSerialIdString(  // line separate
+      const CreateBatchFundTransactionRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.local_serial_id_);
+  }
+  /**
+   * @brief Set json object to localSerialId field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetLocalSerialIdString(  // line separate
+      CreateBatchFundTransactionRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.local_serial_id_, json_value);
+  }
+
+  /**
+   * @brief Get of remoteSerialId
+   * @return remoteSerialId
+   */
+  uint64_t GetRemoteSerialId() const {
+    return remote_serial_id_;
+  }
+  /**
+   * @brief Set to remoteSerialId
+   * @param[in] remote_serial_id    setting value.
+   */
+  void SetRemoteSerialId(  // line separate
+    const uint64_t& remote_serial_id) {  // NOLINT
+    this->remote_serial_id_ = remote_serial_id;
+  }
+  /**
+   * @brief Get data type of remoteSerialId
+   * @return Data type of remoteSerialId
+   */
+  static std::string GetRemoteSerialIdFieldType() {
+    return "uint64_t";
+  }
+  /**
+   * @brief Get json string of remoteSerialId field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetRemoteSerialIdString(  // line separate
+      const CreateBatchFundTransactionRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.remote_serial_id_);
+  }
+  /**
+   * @brief Set json object to remoteSerialId field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetRemoteSerialIdString(  // line separate
+      CreateBatchFundTransactionRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.remote_serial_id_, json_value);
+  }
+
+  /**
+   * @brief Get of lockTime
+   * @return lockTime
+   */
+  uint64_t GetLockTime() const {
+    return lock_time_;
+  }
+  /**
+   * @brief Set to lockTime
+   * @param[in] lock_time    setting value.
+   */
+  void SetLockTime(  // line separate
+    const uint64_t& lock_time) {  // NOLINT
+    this->lock_time_ = lock_time;
+  }
+  /**
+   * @brief Get data type of lockTime
+   * @return Data type of lockTime
+   */
+  static std::string GetLockTimeFieldType() {
+    return "uint64_t";
+  }
+  /**
+   * @brief Get json string of lockTime field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetLockTimeString(  // line separate
+      const CreateBatchFundTransactionRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.lock_time_);
+  }
+  /**
+   * @brief Set json object to lockTime field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetLockTimeString(  // line separate
+      CreateBatchFundTransactionRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.lock_time_, json_value);
+  }
+
+  /**
+   * @brief Get of optionDest
+   * @return optionDest
+   */
+  std::string GetOptionDest() const {
+    return option_dest_;
+  }
+  /**
+   * @brief Set to optionDest
+   * @param[in] option_dest    setting value.
+   */
+  void SetOptionDest(  // line separate
+    const std::string& option_dest) {  // NOLINT
+    this->option_dest_ = option_dest;
+  }
+  /**
+   * @brief Get data type of optionDest
+   * @return Data type of optionDest
+   */
+  static std::string GetOptionDestFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of optionDest field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetOptionDestString(  // line separate
+      const CreateBatchFundTransactionRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.option_dest_);
+  }
+  /**
+   * @brief Set json object to optionDest field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetOptionDestString(  // line separate
+      CreateBatchFundTransactionRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.option_dest_, json_value);
+  }
+
+  /**
+   * @brief Get of optionPremium
+   * @return optionPremium
+   */
+  uint64_t GetOptionPremium() const {
+    return option_premium_;
+  }
+  /**
+   * @brief Set to optionPremium
+   * @param[in] option_premium    setting value.
+   */
+  void SetOptionPremium(  // line separate
+    const uint64_t& option_premium) {  // NOLINT
+    this->option_premium_ = option_premium;
+  }
+  /**
+   * @brief Get data type of optionPremium
+   * @return Data type of optionPremium
+   */
+  static std::string GetOptionPremiumFieldType() {
+    return "uint64_t";
+  }
+  /**
+   * @brief Get json string of optionPremium field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetOptionPremiumString(  // line separate
+      const CreateBatchFundTransactionRequest& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.option_premium_);
+  }
+  /**
+   * @brief Set json object to optionPremium field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetOptionPremiumString(  // line separate
+      CreateBatchFundTransactionRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.option_premium_, json_value);
+  }
+
+  /**
+   * @brief Set ignore item.
+   * @param[in] key   ignore target key name.
+   */
+  void SetIgnoreItem(const std::string& key) {
+    ignore_items.insert(key);
+  }
+
+  /**
+   * @brief Convert struct to class.
+   * @param[in] data   struct data.
+   */
+  void ConvertFromStruct(
+      const CreateBatchFundTransactionRequestStruct& data);
+
+  /**
+   * @brief Convert class to struct.
+   * @return  struct data.
+   */
+  CreateBatchFundTransactionRequestStruct ConvertToStruct()  const;
+
+ protected:
+  /**
+   * @brief definition type of Map table.
+   */
+  using CreateBatchFundTransactionRequestMapTable =
+    cfd::core::JsonTableMap<CreateBatchFundTransactionRequest>;
+
+  /**
+   * @brief Get JSON mapping object.
+   * @return JSON mapping object.
+   * @see cfd::core::JsonClassBase::GetJsonMapper()
+   */
+  virtual const CreateBatchFundTransactionRequestMapTable& GetJsonMapper() const {  // NOLINT
+    return json_mapper;
+  }
+  /**
+   * @brief Get item lists of JSON mapping.
+   * Fetch a list of target variable names in the order of definition.
+   * @return Item lists of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetJsonItemList()
+   */
+  virtual const std::vector<std::string>& GetJsonItemList() const {
+    return item_list;
+  }
+  /**
+   * @brief Get ignore item lists of JSON mapping.
+   * Ignore the target variable at Serialize.
+   * @return Item list of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetIgnoreItem()
+   */
+  virtual const std::set<std::string>& GetIgnoreItem() const {
+    return ignore_items;
+  }
+
+ private:
+ /**
+  * @brief JsonFunctionMap table
+  */
+  static CreateBatchFundTransactionRequestMapTable json_mapper;
+  /**
+   * @brief field name list.
+   */
+  static std::vector<std::string> item_list;
+  /**
+   * @brief ignore item list.
+   */
+  std::set<std::string> ignore_items;
+
+  /**
+   * @brief JsonAPI(localPubkeys) value
+   */
+  JsonValueVector<std::string> local_pubkeys_;  // NOLINT
+  /**
+   * @brief JsonAPI(remotePubkeys) value
+   */
+  JsonValueVector<std::string> remote_pubkeys_;  // NOLINT
+  /**
+   * @brief JsonAPI(outputAmounts) value
+   */
+  JsonValueVector<int64_t> output_amounts_;  // NOLINT
+  /**
+   * @brief JsonAPI(localInputs) value
+   */
+  JsonObjectVector<TxInInfoRequest, TxInInfoRequestStruct> local_inputs_;  // NOLINT
+  /**
+   * @brief JsonAPI(localChange) value
+   */
+  TxOutRequest local_change_;  // NOLINT
+  /**
+   * @brief JsonAPI(remoteInputs) value
+   */
+  JsonObjectVector<TxInInfoRequest, TxInInfoRequestStruct> remote_inputs_;  // NOLINT
+  /**
+   * @brief JsonAPI(remoteChange) value
+   */
+  TxOutRequest remote_change_;  // NOLINT
+  /**
+   * @brief JsonAPI(feeRate) value
+   */
+  int64_t fee_rate_ = 1;
+  /**
+   * @brief JsonAPI(outputSerialIds) value
+   */
+  JsonValueVector<int64_t> output_serial_ids_;  // NOLINT
+  /**
+   * @brief JsonAPI(localSerialId) value
+   */
+  uint64_t local_serial_id_ = 0;
+  /**
+   * @brief JsonAPI(remoteSerialId) value
+   */
+  uint64_t remote_serial_id_ = 0;
+  /**
+   * @brief JsonAPI(lockTime) value
+   */
+  uint64_t lock_time_ = 0;
+  /**
+   * @brief JsonAPI(optionDest) value
+   */
+  std::string option_dest_ = "";
+  /**
+   * @brief JsonAPI(optionPremium) value
+   */
+  uint64_t option_premium_ = 0;
+};
+
+// ------------------------------------------------------------------------
+// CreateBatchFundTransactionResponse
+// ------------------------------------------------------------------------
+/**
+ * @brief JSON-API (CreateBatchFundTransactionResponse) class
+ */
+class CreateBatchFundTransactionResponse
+  : public cfd::core::JsonClassBase<CreateBatchFundTransactionResponse> {
+ public:
+  CreateBatchFundTransactionResponse() {
+    CollectFieldName();
+  }
+  virtual ~CreateBatchFundTransactionResponse() {
+    // do nothing
+  }
+  /**
+   * @brief collect field name.
+   */
+  static void CollectFieldName();
+
+  /**
+   * @brief Get of hex
+   * @return hex
+   */
+  std::string GetHex() const {
+    return hex_;
+  }
+  /**
+   * @brief Set to hex
+   * @param[in] hex    setting value.
+   */
+  void SetHex(  // line separate
+    const std::string& hex) {  // NOLINT
+    this->hex_ = hex;
+  }
+  /**
+   * @brief Get data type of hex
+   * @return Data type of hex
+   */
+  static std::string GetHexFieldType() {
+    return "std::string";
+  }
+  /**
+   * @brief Get json string of hex field.
+   * @param[in,out] obj     class object.
+   * @return JSON string
+   */
+  static std::string GetHexString(  // line separate
+      const CreateBatchFundTransactionResponse& obj) {  // NOLINT
+    return cfd::core::ConvertToString(obj.hex_);
+  }
+  /**
+   * @brief Set json object to hex field.
+   * @param[in,out] obj     class object.
+   * @param[in] json_value  JSON object.
+   */
+  static void SetHexString(  // line separate
+      CreateBatchFundTransactionResponse& obj,  // NOLINT
+      const UniValue& json_value) {
+    cfd::core::ConvertFromUniValue(  // line separate
+      obj.hex_, json_value);
+  }
+
+  /**
+   * @brief Set ignore item.
+   * @param[in] key   ignore target key name.
+   */
+  void SetIgnoreItem(const std::string& key) {
+    ignore_items.insert(key);
+  }
+
+  /**
+   * @brief Convert struct to class.
+   * @param[in] data   struct data.
+   */
+  void ConvertFromStruct(
+      const CreateBatchFundTransactionResponseStruct& data);
+
+  /**
+   * @brief Convert class to struct.
+   * @return  struct data.
+   */
+  CreateBatchFundTransactionResponseStruct ConvertToStruct()  const;
+
+ protected:
+  /**
+   * @brief definition type of Map table.
+   */
+  using CreateBatchFundTransactionResponseMapTable =
+    cfd::core::JsonTableMap<CreateBatchFundTransactionResponse>;
+
+  /**
+   * @brief Get JSON mapping object.
+   * @return JSON mapping object.
+   * @see cfd::core::JsonClassBase::GetJsonMapper()
+   */
+  virtual const CreateBatchFundTransactionResponseMapTable& GetJsonMapper() const {  // NOLINT
+    return json_mapper;
+  }
+  /**
+   * @brief Get item lists of JSON mapping.
+   * Fetch a list of target variable names in the order of definition.
+   * @return Item lists of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetJsonItemList()
+   */
+  virtual const std::vector<std::string>& GetJsonItemList() const {
+    return item_list;
+  }
+  /**
+   * @brief Get ignore item lists of JSON mapping.
+   * Ignore the target variable at Serialize.
+   * @return Item list of JSON mapping.
+   * @see cfd::core::JsonClassBase::GetIgnoreItem()
+   */
+  virtual const std::set<std::string>& GetIgnoreItem() const {
+    return ignore_items;
+  }
+
+ private:
+ /**
+  * @brief JsonFunctionMap table
+  */
+  static CreateBatchFundTransactionResponseMapTable json_mapper;
   /**
    * @brief field name list.
    */
@@ -5489,191 +6569,6 @@ class CreateDlcTransactionsResponse
    * @brief JsonAPI(refundTxHex) value
    */
   std::string refund_tx_hex_ = "";
-};
-
-// ------------------------------------------------------------------------
-// TxOutRequest
-// ------------------------------------------------------------------------
-/**
- * @brief JSON-API (TxOutRequest) class
- */
-class TxOutRequest
-  : public cfd::core::JsonClassBase<TxOutRequest> {
- public:
-  TxOutRequest() {
-    CollectFieldName();
-  }
-  virtual ~TxOutRequest() {
-    // do nothing
-  }
-  /**
-   * @brief collect field name.
-   */
-  static void CollectFieldName();
-
-  /**
-   * @brief Get of amount
-   * @return amount
-   */
-  uint64_t GetAmount() const {
-    return amount_;
-  }
-  /**
-   * @brief Set to amount
-   * @param[in] amount    setting value.
-   */
-  void SetAmount(  // line separate
-    const uint64_t& amount) {  // NOLINT
-    this->amount_ = amount;
-  }
-  /**
-   * @brief Get data type of amount
-   * @return Data type of amount
-   */
-  static std::string GetAmountFieldType() {
-    return "uint64_t";
-  }
-  /**
-   * @brief Get json string of amount field.
-   * @param[in,out] obj     class object.
-   * @return JSON string
-   */
-  static std::string GetAmountString(  // line separate
-      const TxOutRequest& obj) {  // NOLINT
-    return cfd::core::ConvertToString(obj.amount_);
-  }
-  /**
-   * @brief Set json object to amount field.
-   * @param[in,out] obj     class object.
-   * @param[in] json_value  JSON object.
-   */
-  static void SetAmountString(  // line separate
-      TxOutRequest& obj,  // NOLINT
-      const UniValue& json_value) {
-    cfd::core::ConvertFromUniValue(  // line separate
-      obj.amount_, json_value);
-  }
-
-  /**
-   * @brief Get of address
-   * @return address
-   */
-  std::string GetAddress() const {
-    return address_;
-  }
-  /**
-   * @brief Set to address
-   * @param[in] address    setting value.
-   */
-  void SetAddress(  // line separate
-    const std::string& address) {  // NOLINT
-    this->address_ = address;
-  }
-  /**
-   * @brief Get data type of address
-   * @return Data type of address
-   */
-  static std::string GetAddressFieldType() {
-    return "std::string";
-  }
-  /**
-   * @brief Get json string of address field.
-   * @param[in,out] obj     class object.
-   * @return JSON string
-   */
-  static std::string GetAddressString(  // line separate
-      const TxOutRequest& obj) {  // NOLINT
-    return cfd::core::ConvertToString(obj.address_);
-  }
-  /**
-   * @brief Set json object to address field.
-   * @param[in,out] obj     class object.
-   * @param[in] json_value  JSON object.
-   */
-  static void SetAddressString(  // line separate
-      TxOutRequest& obj,  // NOLINT
-      const UniValue& json_value) {
-    cfd::core::ConvertFromUniValue(  // line separate
-      obj.address_, json_value);
-  }
-
-  /**
-   * @brief Set ignore item.
-   * @param[in] key   ignore target key name.
-   */
-  void SetIgnoreItem(const std::string& key) {
-    ignore_items.insert(key);
-  }
-
-  /**
-   * @brief Convert struct to class.
-   * @param[in] data   struct data.
-   */
-  void ConvertFromStruct(
-      const TxOutRequestStruct& data);
-
-  /**
-   * @brief Convert class to struct.
-   * @return  struct data.
-   */
-  TxOutRequestStruct ConvertToStruct()  const;
-
- protected:
-  /**
-   * @brief definition type of Map table.
-   */
-  using TxOutRequestMapTable =
-    cfd::core::JsonTableMap<TxOutRequest>;
-
-  /**
-   * @brief Get JSON mapping object.
-   * @return JSON mapping object.
-   * @see cfd::core::JsonClassBase::GetJsonMapper()
-   */
-  virtual const TxOutRequestMapTable& GetJsonMapper() const {  // NOLINT
-    return json_mapper;
-  }
-  /**
-   * @brief Get item lists of JSON mapping.
-   * Fetch a list of target variable names in the order of definition.
-   * @return Item lists of JSON mapping.
-   * @see cfd::core::JsonClassBase::GetJsonItemList()
-   */
-  virtual const std::vector<std::string>& GetJsonItemList() const {
-    return item_list;
-  }
-  /**
-   * @brief Get ignore item lists of JSON mapping.
-   * Ignore the target variable at Serialize.
-   * @return Item list of JSON mapping.
-   * @see cfd::core::JsonClassBase::GetIgnoreItem()
-   */
-  virtual const std::set<std::string>& GetIgnoreItem() const {
-    return ignore_items;
-  }
-
- private:
- /**
-  * @brief JsonFunctionMap table
-  */
-  static TxOutRequestMapTable json_mapper;
-  /**
-   * @brief field name list.
-   */
-  static std::vector<std::string> item_list;
-  /**
-   * @brief ignore item list.
-   */
-  std::set<std::string> ignore_items;
-
-  /**
-   * @brief JsonAPI(amount) value
-   */
-  uint64_t amount_ = 0;
-  /**
-   * @brief JsonAPI(address) value
-   */
-  std::string address_ = "";
 };
 
 // ------------------------------------------------------------------------

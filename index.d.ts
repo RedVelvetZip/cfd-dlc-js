@@ -33,6 +33,28 @@ export interface AddSignatureToFundTransactionResponse {
     hex: string;
 }
 
+/** Create a batch fund transaction */
+export interface CreateBatchFundTransactionRequest {
+    localPubkeys: string[];
+    remotePubkeys: string[];
+    outputAmounts: bigint | number[];
+    localInputs: TxInInfoRequest[];
+    localChange: TxOutRequest;
+    remoteInputs: TxInInfoRequest[];
+    remoteChange: TxOutRequest;
+    feeRate: bigint | number;
+    outputSerialIds: bigint | number[];
+    localSerialId?: bigint | number;
+    remoteSerialId?: bigint | number;
+    lockTime?: bigint | number;
+    optionDest?: string;
+    optionPremium?: bigint | number;
+}
+
+export interface CreateBatchFundTransactionResponse {
+    hex: string;
+}
+
 /** Create an adaptor signature for a CET */
 export interface CreateCetAdaptorSignatureRequest {
     cetHex: string;
@@ -330,6 +352,12 @@ export function AddSignaturesToRefundTx(jsonObject: AddSignaturesToRefundTxReque
  * @return {AddSignatureToFundTransactionResponse} - response data.
  */
 export function AddSignatureToFundTransaction(jsonObject: AddSignatureToFundTransactionRequest): AddSignatureToFundTransactionResponse;
+
+/**
+ * @param {CreateBatchFundTransactionRequest} jsonObject - request data.
+ * @return {CreateBatchFundTransactionResponse} - response data.
+ */
+export function CreateBatchFundTransaction(jsonObject: CreateBatchFundTransactionRequest): CreateBatchFundTransactionResponse;
 
 /**
  * @param {CreateCetRequest} jsonObject - request data.

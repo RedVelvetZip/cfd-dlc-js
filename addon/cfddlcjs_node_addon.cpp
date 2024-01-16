@@ -95,6 +95,10 @@ Value CreateFundTransaction(const CallbackInfo &information) {
   return NodeAddonJsonApi(information, JsonMappingApi::CreateFundTransaction);
 }
 
+Value CreateBatchFundTransaction(const CallbackInfo &information) {
+  return NodeAddonJsonApi(information, JsonMappingApi::CreateBatchFundTransaction);
+}
+
 Value SignFundTransaction(const CallbackInfo &information) {
   return NodeAddonJsonApi(information, JsonMappingApi::SignFundTransaction);
 }
@@ -169,6 +173,8 @@ void InitializeJsonApi(Env env, Object *exports) {
   cfd::Initialize();
   exports->Set(String::New(env, "CreateFundTransaction"),
                Function::New(env, CreateFundTransaction));
+  exports->Set(String::New(env, "CreateBatchFundTransaction"),
+               Function::New(env, CreateBatchFundTransaction));
   exports->Set(String::New(env, "SignFundTransaction"),
                Function::New(env, SignFundTransaction));
   exports->Set(String::New(env, "GetRawFundTxSignature"),

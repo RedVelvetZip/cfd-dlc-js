@@ -115,6 +115,15 @@ std::string JsonMappingApi::CreateFundTransaction(
       request_message, DlcTransactionsApi::CreateFundTransaction);
 }
 
+std::string JsonMappingApi::CreateBatchFundTransaction(
+    const std::string &request_message) {
+  return ExecuteJsonApi<api::json::CreateBatchFundTransactionRequest,
+                        api::json::CreateBatchFundTransactionResponse,
+                        api::CreateBatchFundTransactionRequestStruct,
+                        api::CreateBatchFundTransactionResponseStruct>(
+      request_message, DlcTransactionsApi::CreateBatchFundTransaction);
+}
+
 std::string JsonMappingApi::GetRawFundTxSignature(
     const std::string &request_message) {
   return ExecuteJsonApi<api::json::GetRawFundTxSignatureRequest,

@@ -1,12 +1,11 @@
 {
   "namespace": ["cfd", "dlc", "js", "api", "json"],
   "request": {
-    ":class": "CreateFundTransactionRequest",
-    ":class:comment": "Create a fund transaction",
-    "localPubkey": "",
-    "remotePubkey": "",
-    "outputAmount": 0,
-    "outputAmount:type": "uint64_t",
+    ":class": "CreateBatchFundTransactionRequest",
+    ":class:comment": "Create a batch fund transaction",
+    "localPubkeys": [""],
+    "remotePubkeys": [""],
+    "outputAmounts": [0],
     "localInputs": [
       {
         ":class": "TxInInfoRequest",
@@ -50,26 +49,24 @@
       "address": ""
     },
     "feeRate": 1,
-    "optionDest": "",
-    "optionDest:require": "optional",
-    "optionPremium": 0,
-    "optionPremium:type": "uint64_t",
-    "optionPremium:require": "optional",
-    "lockTime": 0,
-    "lockTime:type": "uint64_t",
-    "lockTime:require": "optional",
+    "outputSerialIds": [0],
     "localSerialId": 0,
     "localSerialId:type": "uint64_t",
     "localSerialId:require": "optional",
     "remoteSerialId": 0,
     "remoteSerialId:type": "uint64_t",
     "remoteSerialId:require": "optional",
-    "outputSerialId": 0,
-    "outputSerialId:type": "uint64_t",
-    "outputSerialId:require": "optional"
+    "lockTime": 0,
+    "lockTime:type": "uint64_t",
+    "lockTime:require": "optional",
+    "optionDest": "",
+    "optionDest:require": "optional",
+    "optionPremium": 0,
+    "optionPremium:type": "uint64_t",
+    "optionPremium:require": "optional"
   },
   "response": {
-    ":class": "CreateFundTransactionResponse",
+    ":class": "CreateBatchFundTransactionResponse",
     "hex": ""
   }
 }

@@ -77,6 +77,13 @@
     "utility": "cpp",
     "variant": "cpp",
     "vector": "cpp",
-    "condition_variable": "cpp"
+    "condition_variable": "cpp",
+    "__bits": "cpp",
+    "__verbose_abort": "cpp",
+    "forward_list": "cpp",
+    "fstream": "cpp",
+    "stack": "cpp",
+    "compare": "cpp",
+    "concepts": "cpp"
   }
 }

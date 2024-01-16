@@ -36,6 +36,8 @@ class DlcTransactionsApi {
  public:
   static CreateFundTransactionResponseStruct CreateFundTransaction(
       const CreateFundTransactionRequestStruct& request);
+  static CreateBatchFundTransactionResponseStruct CreateBatchFundTransaction(
+      const CreateBatchFundTransactionRequestStruct& request);
   static SignFundTransactionResponseStruct SignFundTransaction(
       const SignFundTransactionRequestStruct& request);
   static GetRawFundTxSignatureResponseStruct GetRawFundTxSignature(

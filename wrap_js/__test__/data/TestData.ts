@@ -36,11 +36,19 @@ export const RemoteInputPrivkey =
 export const RemoteInputPubkey = CfdUtils.GetPubkeyFromPrivkey(
   RemoteInputPrivkey
 );
+export const LocalFundPrivkey2 =
+  "0000000000000000000000000000000000000000000000000000000000000007";
+export const LocalFundPubkey2 = CfdUtils.GetPubkeyFromPrivkey(LocalFundPrivkey2);
+export const RemoteFundPrivkey2 =
+  "0000000000000000000000000000000000000000000000000000000000000008";
+export const RemoteFundPubkey2 = CfdUtils.GetPubkeyFromPrivkey(RemoteFundPrivkey2);
 export const LocalInputAmount = 5000000000;
 export const RemoteInputAmount = 5000000000;
 export const LocalCollateralAmount = 100000000;
 export const RemoteCollateralAmount = 100000000;
 export const FundInputAmount = 200000170;
+export const FundInputAmount1 = 100000085;
+export const FundInputAmount2 = 100000085;
 export const WinAmount = 199900000;
 export const LoseAmount = 100000;
 export const Payouts = [

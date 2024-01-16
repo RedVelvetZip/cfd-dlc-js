@@ -8,10 +8,7 @@ export default class TestHelper {
    * @param {String} testDescribe describe test suite
    * @param {Array.<TestCase>} testCases array of test_case
    */
-  static doTest<TRequest, TResponse>(
-    testDescribe: string,
-    testCases: TestCase<TRequest, TResponse>[]
-  ) {
+  static doTest<TRequest, TResponse>(testDescribe: string, testCases: TestCase<TRequest, TResponse>[]) {
     // if testCases is not array, ends test
     if (!Array.isArray(testCases)) {
       return;
@@ -24,8 +21,10 @@ export default class TestHelper {
           const expected = testCase.expected;
           let received: TResponse;
           try {
+            console.log("testCase", testCase);
             received = testCase.testFunction(testCase.testRequest);
           } catch (error) {
+            console.log("error", error);
             received = JSON.parse(error.message);
           }
           if (testCase.convertFunction) {
@@ -63,20 +62,10 @@ export default class TestHelper {
     teardownFunc: () => void | null = () => undefined,
     convertFunc: () => void | null = null
   ): TestCase<TRequest, TResponse> {
-    return new TestCase(
-      caseName,
-      testFunction,
-      request,
-      expected,
-      setupFunc,
-      teardownFunc,
-      convertFunc
-    );
+    return new TestCase(caseName, testFunction, request, expected, setupFunc, teardownFunc, convertFunc);
   }
 
-  static createIllegalArgumentError(
-    message: string
-  ): cfddlcjs.InnerErrorResponse {
+  static createIllegalArgumentError(message: string): cfddlcjs.InnerErrorResponse {
     const error = {
       code: 1,
       type: "illegal_argument",

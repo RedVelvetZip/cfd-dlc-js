@@ -71,6 +71,18 @@ struct TxInInfoRequestStruct {
 };
 
 // ------------------------------------------------------------------------
+// TxOutRequestStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief TxOutRequestStruct struct
+ */
+struct TxOutRequestStruct {
+  uint64_t amount = 0;       //!< amount  // NOLINT
+  std::string address = "";  //!< address  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
 // AddSignatureToFundTransactionRequestStruct
 // ------------------------------------------------------------------------
 /**
@@ -120,6 +132,42 @@ struct AddSignaturesToRefundTxRequestStruct {
  * @brief AddSignaturesToRefundTxResponseStruct struct
  */
 struct AddSignaturesToRefundTxResponseStruct {
+  std::string hex = "";  //!< hex  // NOLINT
+  cfd::dlc::js::api::InnerErrorResponseStruct error;   //!< error information
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// CreateBatchFundTransactionRequestStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief CreateBatchFundTransactionRequestStruct struct
+ */
+struct CreateBatchFundTransactionRequestStruct {
+  std::vector<std::string> local_pubkeys;            //!< local_pubkeys  // NOLINT
+  std::vector<std::string> remote_pubkeys;           //!< remote_pubkeys  // NOLINT
+  std::vector<int64_t> output_amounts;               //!< output_amounts  // NOLINT
+  std::vector<TxInInfoRequestStruct> local_inputs;   //!< local_inputs  // NOLINT
+  TxOutRequestStruct local_change;                   //!< local_change  // NOLINT
+  std::vector<TxInInfoRequestStruct> remote_inputs;  //!< remote_inputs  // NOLINT
+  TxOutRequestStruct remote_change;                  //!< remote_change  // NOLINT
+  int64_t fee_rate = 1;                              //!< fee_rate  // NOLINT
+  std::vector<int64_t> output_serial_ids;            //!< output_serial_ids  // NOLINT
+  uint64_t local_serial_id = 0;                      //!< local_serial_id  // NOLINT
+  uint64_t remote_serial_id = 0;                     //!< remote_serial_id  // NOLINT
+  uint64_t lock_time = 0;                            //!< lock_time  // NOLINT
+  std::string option_dest = "";                      //!< option_dest  // NOLINT
+  uint64_t option_premium = 0;                       //!< option_premium  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// CreateBatchFundTransactionResponseStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief CreateBatchFundTransactionResponseStruct struct
+ */
+struct CreateBatchFundTransactionResponseStruct {
   std::string hex = "";  //!< hex  // NOLINT
   cfd::dlc::js::api::InnerErrorResponseStruct error;   //!< error information
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
@@ -280,18 +328,6 @@ struct CreateDlcTransactionsResponseStruct {
   std::vector<std::string> cets_hex;  //!< cets_hex  // NOLINT
   std::string refund_tx_hex = "";     //!< refund_tx_hex  // NOLINT
   cfd::dlc::js::api::InnerErrorResponseStruct error;   //!< error information
-  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
-};
-
-// ------------------------------------------------------------------------
-// TxOutRequestStruct
-// ------------------------------------------------------------------------
-/**
- * @brief TxOutRequestStruct struct
- */
-struct TxOutRequestStruct {
-  uint64_t amount = 0;       //!< amount  // NOLINT
-  std::string address = "";  //!< address  // NOLINT
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
 

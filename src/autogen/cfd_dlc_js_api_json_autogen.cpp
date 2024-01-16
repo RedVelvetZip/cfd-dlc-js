@@ -174,6 +174,50 @@ TxInInfoRequestStruct TxInInfoRequest::ConvertToStruct() const {  // NOLINT
 }
 
 // ------------------------------------------------------------------------
+// TxOutRequest
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<TxOutRequest>
+  TxOutRequest::json_mapper;
+std::vector<std::string> TxOutRequest::item_list;
+
+void TxOutRequest::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<TxOutRequest> func_table;  // NOLINT
+
+  func_table = {
+    TxOutRequest::GetAmountString,
+    TxOutRequest::SetAmountString,
+    TxOutRequest::GetAmountFieldType,
+  };
+  json_mapper.emplace("amount", func_table);
+  item_list.push_back("amount");
+  func_table = {
+    TxOutRequest::GetAddressString,
+    TxOutRequest::SetAddressString,
+    TxOutRequest::GetAddressFieldType,
+  };
+  json_mapper.emplace("address", func_table);
+  item_list.push_back("address");
+}
+
+void TxOutRequest::ConvertFromStruct(
+    const TxOutRequestStruct& data) {
+  amount_ = data.amount;
+  address_ = data.address;
+  ignore_items = data.ignore_items;
+}
+
+TxOutRequestStruct TxOutRequest::ConvertToStruct() const {  // NOLINT
+  TxOutRequestStruct result;
+  result.amount = amount_;
+  result.address = address_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
 // AddSignatureToFundTransactionRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<AddSignatureToFundTransactionRequest>
@@ -389,6 +433,193 @@ void AddSignaturesToRefundTxResponse::ConvertFromStruct(
 
 AddSignaturesToRefundTxResponseStruct AddSignaturesToRefundTxResponse::ConvertToStruct() const {  // NOLINT
   AddSignaturesToRefundTxResponseStruct result;
+  result.hex = hex_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// CreateBatchFundTransactionRequest
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<CreateBatchFundTransactionRequest>
+  CreateBatchFundTransactionRequest::json_mapper;
+std::vector<std::string> CreateBatchFundTransactionRequest::item_list;
+
+void CreateBatchFundTransactionRequest::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<CreateBatchFundTransactionRequest> func_table;  // NOLINT
+
+  func_table = {
+    CreateBatchFundTransactionRequest::GetLocalPubkeysString,
+    CreateBatchFundTransactionRequest::SetLocalPubkeysString,
+    CreateBatchFundTransactionRequest::GetLocalPubkeysFieldType,
+  };
+  json_mapper.emplace("localPubkeys", func_table);
+  item_list.push_back("localPubkeys");
+  func_table = {
+    CreateBatchFundTransactionRequest::GetRemotePubkeysString,
+    CreateBatchFundTransactionRequest::SetRemotePubkeysString,
+    CreateBatchFundTransactionRequest::GetRemotePubkeysFieldType,
+  };
+  json_mapper.emplace("remotePubkeys", func_table);
+  item_list.push_back("remotePubkeys");
+  func_table = {
+    CreateBatchFundTransactionRequest::GetOutputAmountsString,
+    CreateBatchFundTransactionRequest::SetOutputAmountsString,
+    CreateBatchFundTransactionRequest::GetOutputAmountsFieldType,
+  };
+  json_mapper.emplace("outputAmounts", func_table);
+  item_list.push_back("outputAmounts");
+  func_table = {
+    CreateBatchFundTransactionRequest::GetLocalInputsString,
+    CreateBatchFundTransactionRequest::SetLocalInputsString,
+    CreateBatchFundTransactionRequest::GetLocalInputsFieldType,
+  };
+  json_mapper.emplace("localInputs", func_table);
+  item_list.push_back("localInputs");
+  func_table = {
+    CreateBatchFundTransactionRequest::GetLocalChangeString,
+    CreateBatchFundTransactionRequest::SetLocalChangeString,
+    CreateBatchFundTransactionRequest::GetLocalChangeFieldType,
+  };
+  json_mapper.emplace("localChange", func_table);
+  item_list.push_back("localChange");
+  func_table = {
+    CreateBatchFundTransactionRequest::GetRemoteInputsString,
+    CreateBatchFundTransactionRequest::SetRemoteInputsString,
+    CreateBatchFundTransactionRequest::GetRemoteInputsFieldType,
+  };
+  json_mapper.emplace("remoteInputs", func_table);
+  item_list.push_back("remoteInputs");
+  func_table = {
+    CreateBatchFundTransactionRequest::GetRemoteChangeString,
+    CreateBatchFundTransactionRequest::SetRemoteChangeString,
+    CreateBatchFundTransactionRequest::GetRemoteChangeFieldType,
+  };
+  json_mapper.emplace("remoteChange", func_table);
+  item_list.push_back("remoteChange");
+  func_table = {
+    CreateBatchFundTransactionRequest::GetFeeRateString,
+    CreateBatchFundTransactionRequest::SetFeeRateString,
+    CreateBatchFundTransactionRequest::GetFeeRateFieldType,
+  };
+  json_mapper.emplace("feeRate", func_table);
+  item_list.push_back("feeRate");
+  func_table = {
+    CreateBatchFundTransactionRequest::GetOutputSerialIdsString,
+    CreateBatchFundTransactionRequest::SetOutputSerialIdsString,
+    CreateBatchFundTransactionRequest::GetOutputSerialIdsFieldType,
+  };
+  json_mapper.emplace("outputSerialIds", func_table);
+  item_list.push_back("outputSerialIds");
+  func_table = {
+    CreateBatchFundTransactionRequest::GetLocalSerialIdString,
+    CreateBatchFundTransactionRequest::SetLocalSerialIdString,
+    CreateBatchFundTransactionRequest::GetLocalSerialIdFieldType,
+  };
+  json_mapper.emplace("localSerialId", func_table);
+  item_list.push_back("localSerialId");
+  func_table = {
+    CreateBatchFundTransactionRequest::GetRemoteSerialIdString,
+    CreateBatchFundTransactionRequest::SetRemoteSerialIdString,
+    CreateBatchFundTransactionRequest::GetRemoteSerialIdFieldType,
+  };
+  json_mapper.emplace("remoteSerialId", func_table);
+  item_list.push_back("remoteSerialId");
+  func_table = {
+    CreateBatchFundTransactionRequest::GetLockTimeString,
+    CreateBatchFundTransactionRequest::SetLockTimeString,
+    CreateBatchFundTransactionRequest::GetLockTimeFieldType,
+  };
+  json_mapper.emplace("lockTime", func_table);
+  item_list.push_back("lockTime");
+  func_table = {
+    CreateBatchFundTransactionRequest::GetOptionDestString,
+    CreateBatchFundTransactionRequest::SetOptionDestString,
+    CreateBatchFundTransactionRequest::GetOptionDestFieldType,
+  };
+  json_mapper.emplace("optionDest", func_table);
+  item_list.push_back("optionDest");
+  func_table = {
+    CreateBatchFundTransactionRequest::GetOptionPremiumString,
+    CreateBatchFundTransactionRequest::SetOptionPremiumString,
+    CreateBatchFundTransactionRequest::GetOptionPremiumFieldType,
+  };
+  json_mapper.emplace("optionPremium", func_table);
+  item_list.push_back("optionPremium");
+}
+
+void CreateBatchFundTransactionRequest::ConvertFromStruct(
+    const CreateBatchFundTransactionRequestStruct& data) {
+  local_pubkeys_.ConvertFromStruct(data.local_pubkeys);
+  remote_pubkeys_.ConvertFromStruct(data.remote_pubkeys);
+  output_amounts_.ConvertFromStruct(data.output_amounts);
+  local_inputs_.ConvertFromStruct(data.local_inputs);
+  local_change_.ConvertFromStruct(data.local_change);
+  remote_inputs_.ConvertFromStruct(data.remote_inputs);
+  remote_change_.ConvertFromStruct(data.remote_change);
+  fee_rate_ = data.fee_rate;
+  output_serial_ids_.ConvertFromStruct(data.output_serial_ids);
+  local_serial_id_ = data.local_serial_id;
+  remote_serial_id_ = data.remote_serial_id;
+  lock_time_ = data.lock_time;
+  option_dest_ = data.option_dest;
+  option_premium_ = data.option_premium;
+  ignore_items = data.ignore_items;
+}
+
+CreateBatchFundTransactionRequestStruct CreateBatchFundTransactionRequest::ConvertToStruct() const {  // NOLINT
+  CreateBatchFundTransactionRequestStruct result;
+  result.local_pubkeys = local_pubkeys_.ConvertToStruct();
+  result.remote_pubkeys = remote_pubkeys_.ConvertToStruct();
+  result.output_amounts = output_amounts_.ConvertToStruct();
+  result.local_inputs = local_inputs_.ConvertToStruct();
+  result.local_change = local_change_.ConvertToStruct();
+  result.remote_inputs = remote_inputs_.ConvertToStruct();
+  result.remote_change = remote_change_.ConvertToStruct();
+  result.fee_rate = fee_rate_;
+  result.output_serial_ids = output_serial_ids_.ConvertToStruct();
+  result.local_serial_id = local_serial_id_;
+  result.remote_serial_id = remote_serial_id_;
+  result.lock_time = lock_time_;
+  result.option_dest = option_dest_;
+  result.option_premium = option_premium_;
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// CreateBatchFundTransactionResponse
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<CreateBatchFundTransactionResponse>
+  CreateBatchFundTransactionResponse::json_mapper;
+std::vector<std::string> CreateBatchFundTransactionResponse::item_list;
+
+void CreateBatchFundTransactionResponse::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<CreateBatchFundTransactionResponse> func_table;  // NOLINT
+
+  func_table = {
+    CreateBatchFundTransactionResponse::GetHexString,
+    CreateBatchFundTransactionResponse::SetHexString,
+    CreateBatchFundTransactionResponse::GetHexFieldType,
+  };
+  json_mapper.emplace("hex", func_table);
+  item_list.push_back("hex");
+}
+
+void CreateBatchFundTransactionResponse::ConvertFromStruct(
+    const CreateBatchFundTransactionResponseStruct& data) {
+  hex_ = data.hex;
+  ignore_items = data.ignore_items;
+}
+
+CreateBatchFundTransactionResponseStruct CreateBatchFundTransactionResponse::ConvertToStruct() const {  // NOLINT
+  CreateBatchFundTransactionResponseStruct result;
   result.hex = hex_;
   result.ignore_items = ignore_items;
   return result;
@@ -1200,50 +1431,6 @@ CreateDlcTransactionsResponseStruct CreateDlcTransactionsResponse::ConvertToStru
   result.fund_tx_hex = fund_tx_hex_;
   result.cets_hex = cets_hex_.ConvertToStruct();
   result.refund_tx_hex = refund_tx_hex_;
-  result.ignore_items = ignore_items;
-  return result;
-}
-
-// ------------------------------------------------------------------------
-// TxOutRequest
-// ------------------------------------------------------------------------
-cfd::core::JsonTableMap<TxOutRequest>
-  TxOutRequest::json_mapper;
-std::vector<std::string> TxOutRequest::item_list;
-
-void TxOutRequest::CollectFieldName() {
-  if (!json_mapper.empty()) {
-    return;
-  }
-  cfd::core::CLASS_FUNCTION_TABLE<TxOutRequest> func_table;  // NOLINT
-
-  func_table = {
-    TxOutRequest::GetAmountString,
-    TxOutRequest::SetAmountString,
-    TxOutRequest::GetAmountFieldType,
-  };
-  json_mapper.emplace("amount", func_table);
-  item_list.push_back("amount");
-  func_table = {
-    TxOutRequest::GetAddressString,
-    TxOutRequest::SetAddressString,
-    TxOutRequest::GetAddressFieldType,
-  };
-  json_mapper.emplace("address", func_table);
-  item_list.push_back("address");
-}
-
-void TxOutRequest::ConvertFromStruct(
-    const TxOutRequestStruct& data) {
-  amount_ = data.amount;
-  address_ = data.address;
-  ignore_items = data.ignore_items;
-}
-
-TxOutRequestStruct TxOutRequest::ConvertToStruct() const {  // NOLINT
-  TxOutRequestStruct result;
-  result.amount = amount_;
-  result.address = address_;
   result.ignore_items = ignore_items;
   return result;
 }
