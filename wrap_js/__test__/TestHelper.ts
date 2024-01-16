@@ -21,10 +21,8 @@ export default class TestHelper {
           const expected = testCase.expected;
           let received: TResponse;
           try {
-            console.log("testCase", testCase);
             received = testCase.testFunction(testCase.testRequest);
           } catch (error) {
-            console.log("error", error);
             received = JSON.parse(error.message);
           }
           if (testCase.convertFunction) {

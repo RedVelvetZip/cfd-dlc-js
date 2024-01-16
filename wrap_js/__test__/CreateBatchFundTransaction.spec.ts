@@ -2,13 +2,7 @@ import * as cfddlcjs from "../../index.js";
 import TestHelper from "./TestHelper";
 import * as TestData from "./data/TestData";
 
-console.log('TestData.LocalFundPubkey', TestData.LocalFundPubkey);
-
-console.log('testing cfddlcjs', cfddlcjs);
-
 function GetRequest(
-  optionPremium = 0,
-  optionDest = "",
   localChange = 4899999789,
   remoteChange = 4899999789
 ) {
@@ -48,7 +42,7 @@ const testCase = [
     cfddlcjs.CreateBatchFundTransaction,
     GetRequest(),
     {
-      hex: TestData.FundTxHexUnsigned,
+      hex: TestData.BatchFundTxHexUnsigned,
     }
   ),
 ];
