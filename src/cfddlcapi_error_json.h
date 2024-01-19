@@ -7,8 +7,8 @@
 #ifndef CFD_JS_SRC_CFDAPI_ERROR_JSON_H_
 #define CFD_JS_SRC_CFDAPI_ERROR_JSON_H_
 
-#include "cfdcore/cfdcore_exception.h"
 #include "cfd_dlc_js_api_json_autogen.h"  // NOLINT
+#include "cfdcore/cfdcore_exception.h"
 #include "cfddlcjs/cfddlcjs_struct.h"
 
 namespace cfd {
@@ -37,15 +37,15 @@ class ErrorResponse : public ErrorResponseBase {
    * @param cfde CfdException object
    * @return ErrorResponse object
    */
-  static const ErrorResponse ConvertFromCfdException(const CfdException& cfde);
+  static const ErrorResponse ConvertFromCfdException(const CfdException &cfde);
 
   /**
    * @brief InnerErrorResponseStructをErrorResponseに変換する.
    * @param[in] data  InnerErrorResponse struct
    * @return ErrorResponse object
    */
-  static const ErrorResponse ConvertFromStruct(
-      const InnerErrorResponseStruct& data);
+  static const ErrorResponse
+  ConvertFromStruct(const InnerErrorResponseStruct &data);
 };
 
 // @formatter:on

@@ -27,7 +27,7 @@ using cfd::core::logger::warn;
  * @param cfde CfdException object
  * @return ErrorResponse object
  */
-InnerErrorResponseStruct ConvertCfdExceptionToStruct(const CfdException& cfde);
+InnerErrorResponseStruct ConvertCfdExceptionToStruct(const CfdException &cfde);
 
 /**
  * @brief 構造体指定処理の共通部テンプレート関数.
@@ -38,29 +38,32 @@ InnerErrorResponseStruct ConvertCfdExceptionToStruct(const CfdException& cfde);
  */
 template <typename RequestStructType, typename ResponseStructType>
 ResponseStructType ExecuteStructApi(
-    const RequestStructType& request,
-    std::function<ResponseStructType(const RequestStructType&)> call_function,
-    std::string fuction_name) {
+  const RequestStructType &request,
+  std::function<ResponseStructType(const RequestStructType &)> call_function,
+  std::string fuction_name) {
   ResponseStructType response;
   try {
     cfd::Initialize();
 
     response = call_function(request);
-  } catch (const CfdException& cfde) {
-    warn(CFD_LOG_SOURCE,
-         "Failed to {}. CfdException occurred:  code={}, message={}",
-         fuction_name, cfde.GetErrorCode(), cfde.what());
+  } catch (const CfdException &cfde) {
+    warn(
+      CFD_LOG_SOURCE,
+      "Failed to {}. CfdException occurred:  code={}, message={}", fuction_name,
+      cfde.GetErrorCode(), cfde.what());
     response.error = cfd::dlc::js::api::ConvertCfdExceptionToStruct(cfde);
-  } catch (const std::exception& except) {
-    warn(CFD_LOG_SOURCE, "Failed to {}. Exception occurred: message={}",
-         fuction_name, except.what());
+  } catch (const std::exception &except) {
+    warn(
+      CFD_LOG_SOURCE, "Failed to {}. Exception occurred: message={}",
+      fuction_name, except.what());
     response.error =
-        cfd::dlc::js::api::ConvertCfdExceptionToStruct(CfdException());
+      cfd::dlc::js::api::ConvertCfdExceptionToStruct(CfdException());
   } catch (...) {
-    warn(CFD_LOG_SOURCE, "Failed to {}. Unknown exception occurred.",
-         fuction_name);
+    warn(
+      CFD_LOG_SOURCE, "Failed to {}. Unknown exception occurred.",
+      fuction_name);
     response.error =
-        cfd::dlc::js::api::ConvertCfdExceptionToStruct(CfdException());
+      cfd::dlc::js::api::ConvertCfdExceptionToStruct(CfdException());
   }
   return response;
 }
@@ -73,28 +76,30 @@ ResponseStructType ExecuteStructApi(
  */
 template <typename ResponseStructType>
 ResponseStructType ExecuteResponseStructApi(
-    std::function<ResponseStructType()> call_function,
-    std::string fuction_name) {
+  std::function<ResponseStructType()> call_function, std::string fuction_name) {
   ResponseStructType response;
   try {
     cfd::Initialize();
 
     response = call_function();
-  } catch (const CfdException& cfde) {
-    warn(CFD_LOG_SOURCE,
-         "Failed to {}. CfdException occurred:  code={}, message={}",
-         fuction_name, cfde.GetErrorCode(), cfde.what());
+  } catch (const CfdException &cfde) {
+    warn(
+      CFD_LOG_SOURCE,
+      "Failed to {}. CfdException occurred:  code={}, message={}", fuction_name,
+      cfde.GetErrorCode(), cfde.what());
     response.error = cfd::dlc::js::api::ConvertCfdExceptionToStruct(cfde);
-  } catch (const std::exception& except) {
-    warn(CFD_LOG_SOURCE, "Failed to {}. Exception occurred: message={}",
-         fuction_name, except.what());
+  } catch (const std::exception &except) {
+    warn(
+      CFD_LOG_SOURCE, "Failed to {}. Exception occurred: message={}",
+      fuction_name, except.what());
     response.error =
-        cfd::dlc::js::api::ConvertCfdExceptionToStruct(CfdException());
+      cfd::dlc::js::api::ConvertCfdExceptionToStruct(CfdException());
   } catch (...) {
-    warn(CFD_LOG_SOURCE, "Failed to {}. Unknown exception occurred.",
-         fuction_name);
+    warn(
+      CFD_LOG_SOURCE, "Failed to {}. Unknown exception occurred.",
+      fuction_name);
     response.error =
-        cfd::dlc::js::api::ConvertCfdExceptionToStruct(CfdException());
+      cfd::dlc::js::api::ConvertCfdExceptionToStruct(CfdException());
   }
   return response;
 }

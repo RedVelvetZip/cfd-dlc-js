@@ -34,51 +34,51 @@ using cfd::core::SchnorrSignature;
 
 class DlcTransactionsApi {
  public:
-  static CreateFundTransactionResponseStruct CreateFundTransaction(
-      const CreateFundTransactionRequestStruct& request);
+  static CreateFundTransactionResponseStruct
+  CreateFundTransaction(const CreateFundTransactionRequestStruct &request);
   static CreateBatchFundTransactionResponseStruct CreateBatchFundTransaction(
-      const CreateBatchFundTransactionRequestStruct& request);
-  static SignFundTransactionResponseStruct SignFundTransaction(
-      const SignFundTransactionRequestStruct& request);
-  static GetRawFundTxSignatureResponseStruct GetRawFundTxSignature(
-      const GetRawFundTxSignatureRequestStruct& request);
+    const CreateBatchFundTransactionRequestStruct &request);
+  static SignFundTransactionResponseStruct
+  SignFundTransaction(const SignFundTransactionRequestStruct &request);
+  static GetRawFundTxSignatureResponseStruct
+  GetRawFundTxSignature(const GetRawFundTxSignatureRequestStruct &request);
   static AddSignatureToFundTransactionResponseStruct
   AddSignatureToFundTransaction(
-      const AddSignatureToFundTransactionRequestStruct& request);
-  static VerifyFundTxSignatureResponseStruct VerifyFundTxSignature(
-      const VerifyFundTxSignatureRequestStruct& request);
-  static CreateCetResponseStruct CreateCet(
-      const CreateCetRequestStruct& request);
-  static CreateRefundTransactionResponseStruct CreateRefundTransaction(
-      const CreateRefundTransactionRequestStruct& request);
-  static CreateDlcTransactionsResponseStruct CreateDlcTransactions(
-      const CreateDlcTransactionsRequestStruct& request);
+    const AddSignatureToFundTransactionRequestStruct &request);
+  static VerifyFundTxSignatureResponseStruct
+  VerifyFundTxSignature(const VerifyFundTxSignatureRequestStruct &request);
+  static CreateCetResponseStruct
+  CreateCet(const CreateCetRequestStruct &request);
+  static CreateRefundTransactionResponseStruct
+  CreateRefundTransaction(const CreateRefundTransactionRequestStruct &request);
+  static CreateDlcTransactionsResponseStruct
+  CreateDlcTransactions(const CreateDlcTransactionsRequestStruct &request);
   static CreateCetAdaptorSignatureResponseStruct CreateCetAdaptorSignature(
-      const CreateCetAdaptorSignatureRequestStruct& request);
+    const CreateCetAdaptorSignatureRequestStruct &request);
   static CreateCetAdaptorSignaturesResponseStruct CreateCetAdaptorSignatures(
-      const CreateCetAdaptorSignaturesRequestStruct& request);
-  static GetRawRefundTxSignatureResponseStruct GetRawRefundTxSignature(
-      const GetRawRefundTxSignatureRequestStruct& request);
-  static SignCetResponseStruct SignCet(const SignCetRequestStruct& request);
+    const CreateCetAdaptorSignaturesRequestStruct &request);
+  static GetRawRefundTxSignatureResponseStruct
+  GetRawRefundTxSignature(const GetRawRefundTxSignatureRequestStruct &request);
+  static SignCetResponseStruct SignCet(const SignCetRequestStruct &request);
   static VerifyCetAdaptorSignatureResponseStruct VerifyCetAdaptorSignature(
-      const VerifyCetAdaptorSignatureRequestStruct& request);
+    const VerifyCetAdaptorSignatureRequestStruct &request);
   static VerifyCetAdaptorSignaturesResponseStruct VerifyCetAdaptorSignatures(
-      const VerifyCetAdaptorSignaturesRequestStruct& request);
-  static AddSignaturesToRefundTxResponseStruct AddSignaturesToRefundTx(
-      const AddSignaturesToRefundTxRequestStruct& request);
-  static VerifyRefundTxSignatureResponseStruct VerifyRefundTxSignature(
-      const VerifyRefundTxSignatureRequestStruct& request);
+    const VerifyCetAdaptorSignaturesRequestStruct &request);
+  static AddSignaturesToRefundTxResponseStruct
+  AddSignaturesToRefundTx(const AddSignaturesToRefundTxRequestStruct &request);
+  static VerifyRefundTxSignatureResponseStruct
+  VerifyRefundTxSignature(const VerifyRefundTxSignatureRequestStruct &request);
 
  private:
   DlcTransactionsApi();
   static std::vector<Pubkey> ParsePubkeys(std::vector<std::string> input);
-  static std::vector<SchnorrPubkey> ParseSchnorrPubkeys(
-      std::vector<std::string> input);
-  static std::vector<SchnorrSignature> ParseSchnorrSignatures(
-      std::vector<std::string> input);
+  static std::vector<SchnorrPubkey>
+  ParseSchnorrPubkeys(std::vector<std::string> input);
+  static std::vector<SchnorrSignature>
+  ParseSchnorrSignatures(std::vector<std::string> input);
   static std::vector<ByteData256> HashMessages(std::vector<std::string> input);
-  static std::vector<std::vector<ByteData256>> HashMessages(
-      std::vector<MessagesStruct> input);
+  static std::vector<std::vector<ByteData256>>
+  HashMessages(std::vector<MessagesStruct> input);
 };
 
 }  // namespace api

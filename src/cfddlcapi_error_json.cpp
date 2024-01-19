@@ -22,8 +22,8 @@ using cfd::core::CfdException;
 // ------------------------------------------------------------------------
 // ErrorResponse
 // ------------------------------------------------------------------------
-const ErrorResponse ErrorResponse::ConvertFromCfdException(
-    const CfdException& cfde) {
+const ErrorResponse
+ErrorResponse::ConvertFromCfdException(const CfdException &cfde) {
   ErrorResponse res;
   InnerErrorResponse inner_err;
 
@@ -35,8 +35,8 @@ const ErrorResponse ErrorResponse::ConvertFromCfdException(
   return res;
 }
 
-const ErrorResponse ErrorResponse::ConvertFromStruct(
-    const InnerErrorResponseStruct& data) {
+const ErrorResponse
+ErrorResponse::ConvertFromStruct(const InnerErrorResponseStruct &data) {
   ErrorResponse res;
   InnerErrorResponse inner_err;
 

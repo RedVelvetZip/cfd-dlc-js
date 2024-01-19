@@ -74,7 +74,7 @@ namespace json {
  * @param[out] exports 関数格納オブジェクト
  * @return LibraryFunctionのビットフラグ
  */
-CFD_DLC_JS_API void InitializeJsonApi(Napi::Env env, Napi::Object* exports);
+CFD_DLC_JS_API void InitializeJsonApi(Napi::Env env, Napi::Object *exports);
 
 }  // namespace json
 }  // namespace api

@@ -23,7 +23,7 @@ namespace api {
 using cfd::core::CfdException;
 
 // 実体定義用(多重定義防止のためCPP側に定義)
-InnerErrorResponseStruct ConvertCfdExceptionToStruct(const CfdException& cfde) {
+InnerErrorResponseStruct ConvertCfdExceptionToStruct(const CfdException &cfde) {
   InnerErrorResponseStruct result;
   result.code = cfde.GetErrorCode();
   result.type = cfde.GetErrorType();

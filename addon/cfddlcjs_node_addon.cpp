@@ -39,8 +39,8 @@ namespace json {
  * @return 戻り値(JSON文字列)
  */
 Value NodeAddonJsonApi(
-    const CallbackInfo &information,
-    std::function<std::string(const std::string &)> call_function) {
+  const CallbackInfo &information,
+  std::function<std::string(const std::string &)> call_function) {
   Env env = information.Env();
   if (information.Length() < 1) {
     TypeError::New(env, "Invalid arguments.").ThrowAsJavaScriptException();
@@ -53,7 +53,7 @@ Value NodeAddonJsonApi(
 
   try {
     std::string json_message =
-        call_function(information[0].As<String>().Utf8Value());
+      call_function(information[0].As<String>().Utf8Value());
     return String::New(env, json_message.c_str());
   } catch (const std::exception &except) {
     // illegal route
@@ -73,8 +73,8 @@ Value NodeAddonJsonApi(
  * @param[in] call_function   cfdの呼び出し関数
  * @return 戻り値(JSON文字列)
  */
-Value NodeAddonJsonResponseApi(const CallbackInfo &information,
-                               std::function<std::string()> call_function) {
+Value NodeAddonJsonResponseApi(
+  const CallbackInfo &information, std::function<std::string()> call_function) {
   Env env = information.Env();
   try {
     std::string json_message = call_function();
@@ -96,7 +96,8 @@ Value CreateFundTransaction(const CallbackInfo &information) {
 }
 
 Value CreateBatchFundTransaction(const CallbackInfo &information) {
-  return NodeAddonJsonApi(information, JsonMappingApi::CreateBatchFundTransaction);
+  return NodeAddonJsonApi(
+    information, JsonMappingApi::CreateBatchFundTransaction);
 }
 
 Value SignFundTransaction(const CallbackInfo &information) {
@@ -108,8 +109,8 @@ Value GetRawFundTxSignature(const CallbackInfo &information) {
 }
 
 Value AddSignatureToFundTransaction(const CallbackInfo &information) {
-  return NodeAddonJsonApi(information,
-                          JsonMappingApi::AddSignatureToFundTransaction);
+  return NodeAddonJsonApi(
+    information, JsonMappingApi::AddSignatureToFundTransaction);
 }
 
 Value CreateCet(const CallbackInfo &information) {
@@ -129,13 +130,13 @@ Value CreateDlcTransactions(const CallbackInfo &information) {
 }
 
 Value CreateCetAdaptorSignature(const CallbackInfo &information) {
-  return NodeAddonJsonApi(information,
-                          JsonMappingApi::CreateCetAdaptorSignature);
+  return NodeAddonJsonApi(
+    information, JsonMappingApi::CreateCetAdaptorSignature);
 }
 
 Value CreateCetAdaptorSignatures(const CallbackInfo &information) {
-  return NodeAddonJsonApi(information,
-                          JsonMappingApi::CreateCetAdaptorSignatures);
+  return NodeAddonJsonApi(
+    information, JsonMappingApi::CreateCetAdaptorSignatures);
 }
 
 Value SignCet(const CallbackInfo &information) {
@@ -143,13 +144,13 @@ Value SignCet(const CallbackInfo &information) {
 }
 
 Value VerifyCetAdaptorSignature(const CallbackInfo &information) {
-  return NodeAddonJsonApi(information,
-                          JsonMappingApi::VerifyCetAdaptorSignature);
+  return NodeAddonJsonApi(
+    information, JsonMappingApi::VerifyCetAdaptorSignature);
 }
 
 Value VerifyCetAdaptorSignatures(const CallbackInfo &information) {
-  return NodeAddonJsonApi(information,
-                          JsonMappingApi::VerifyCetAdaptorSignatures);
+  return NodeAddonJsonApi(
+    information, JsonMappingApi::VerifyCetAdaptorSignatures);
 }
 
 Value GetRawRefundTxSignature(const CallbackInfo &information) {
@@ -171,38 +172,53 @@ Value VerifyRefundTxSignature(const CallbackInfo &information) {
  */
 void InitializeJsonApi(Env env, Object *exports) {
   cfd::Initialize();
-  exports->Set(String::New(env, "CreateFundTransaction"),
-               Function::New(env, CreateFundTransaction));
-  exports->Set(String::New(env, "CreateBatchFundTransaction"),
-               Function::New(env, CreateBatchFundTransaction));
-  exports->Set(String::New(env, "SignFundTransaction"),
-               Function::New(env, SignFundTransaction));
-  exports->Set(String::New(env, "GetRawFundTxSignature"),
-               Function::New(env, GetRawFundTxSignature));
-  exports->Set(String::New(env, "AddSignatureToFundTransaction"),
-               Function::New(env, AddSignatureToFundTransaction));
-  exports->Set(String::New(env, "VerifyFundTxSignature"),
-               Function::New(env, VerifyFundTxSignature));
+  exports->Set(
+    String::New(env, "CreateFundTransaction"),
+    Function::New(env, CreateFundTransaction));
+  exports->Set(
+    String::New(env, "CreateBatchFundTransaction"),
+    Function::New(env, CreateBatchFundTransaction));
+  exports->Set(
+    String::New(env, "SignFundTransaction"),
+    Function::New(env, SignFundTransaction));
+  exports->Set(
+    String::New(env, "GetRawFundTxSignature"),
+    Function::New(env, GetRawFundTxSignature));
+  exports->Set(
+    String::New(env, "AddSignatureToFundTransaction"),
+    Function::New(env, AddSignatureToFundTransaction));
+  exports->Set(
+    String::New(env, "VerifyFundTxSignature"),
+    Function::New(env, VerifyFundTxSignature));
   exports->Set(String::New(env, "CreateCet"), Function::New(env, CreateCet));
-  exports->Set(String::New(env, "CreateRefundTransaction"),
-               Function::New(env, CreateRefundTransaction));
-  exports->Set(String::New(env, "CreateDlcTransactions"),
-               Function::New(env, CreateDlcTransactions));
-  exports->Set(String::New(env, "CreateCetAdaptorSignature"),
-               Function::New(env, CreateCetAdaptorSignature));
-  exports->Set(String::New(env, "CreateCetAdaptorSignatures"),
-               Function::New(env, CreateCetAdaptorSignatures));
+  exports->Set(
+    String::New(env, "CreateRefundTransaction"),
+    Function::New(env, CreateRefundTransaction));
+  exports->Set(
+    String::New(env, "CreateDlcTransactions"),
+    Function::New(env, CreateDlcTransactions));
+  exports->Set(
+    String::New(env, "CreateCetAdaptorSignature"),
+    Function::New(env, CreateCetAdaptorSignature));
+  exports->Set(
+    String::New(env, "CreateCetAdaptorSignatures"),
+    Function::New(env, CreateCetAdaptorSignatures));
   exports->Set(String::New(env, "SignCet"), Function::New(env, SignCet));
-  exports->Set(String::New(env, "VerifyCetAdaptorSignature"),
-               Function::New(env, VerifyCetAdaptorSignature));
-  exports->Set(String::New(env, "VerifyCetAdaptorSignatures"),
-               Function::New(env, VerifyCetAdaptorSignatures));
-  exports->Set(String::New(env, "GetRawRefundTxSignature"),
-               Function::New(env, GetRawRefundTxSignature));
-  exports->Set(String::New(env, "AddSignaturesToRefundTx"),
-               Function::New(env, AddSignaturesToRefundTx));
-  exports->Set(String::New(env, "VerifyRefundTxSignature"),
-               Function::New(env, VerifyRefundTxSignature));
+  exports->Set(
+    String::New(env, "VerifyCetAdaptorSignature"),
+    Function::New(env, VerifyCetAdaptorSignature));
+  exports->Set(
+    String::New(env, "VerifyCetAdaptorSignatures"),
+    Function::New(env, VerifyCetAdaptorSignatures));
+  exports->Set(
+    String::New(env, "GetRawRefundTxSignature"),
+    Function::New(env, GetRawRefundTxSignature));
+  exports->Set(
+    String::New(env, "AddSignaturesToRefundTx"),
+    Function::New(env, AddSignaturesToRefundTx));
+  exports->Set(
+    String::New(env, "VerifyRefundTxSignature"),
+    Function::New(env, VerifyRefundTxSignature));
 }
 
 }  // namespace json
