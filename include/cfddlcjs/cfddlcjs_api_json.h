@@ -73,6 +73,8 @@ class CFD_DLC_JS_API_EXPORT JsonMappingApi {
 
   static std::string CreateDlcTransactions(const std::string &request_message);
   static std::string
+  CreateBatchDlcTransactions(const std::string &request_message);
+  static std::string
   CreateCetAdaptorSignature(const std::string &request_message);
   static std::string
   CreateCetAdaptorSignatures(const std::string &request_message);

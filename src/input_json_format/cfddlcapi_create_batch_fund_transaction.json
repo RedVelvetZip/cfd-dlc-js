@@ -49,21 +49,16 @@
       "address": ""
     },
     "feeRate": 1,
-    "outputSerialIds": [0],
+    "lockTime": 0,
+    "lockTime:type": "uint64_t",
+    "lockTime:require": "optional",
     "localSerialId": 0,
     "localSerialId:type": "uint64_t",
     "localSerialId:require": "optional",
     "remoteSerialId": 0,
     "remoteSerialId:type": "uint64_t",
     "remoteSerialId:require": "optional",
-    "lockTime": 0,
-    "lockTime:type": "uint64_t",
-    "lockTime:require": "optional",
-    "optionDest": "",
-    "optionDest:require": "optional",
-    "optionPremium": 0,
-    "optionPremium:type": "uint64_t",
-    "optionPremium:require": "optional"
+    "outputSerialIds": [0]
   },
   "response": {
     ":class": "CreateBatchFundTransactionResponse",

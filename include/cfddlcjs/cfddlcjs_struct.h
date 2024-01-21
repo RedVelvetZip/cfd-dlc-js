@@ -138,6 +138,53 @@ struct AddSignaturesToRefundTxResponseStruct {
 };
 
 // ------------------------------------------------------------------------
+// CreateBatchDlcTransactionsRequestStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief CreateBatchDlcTransactionsRequestStruct struct
+ */
+struct CreateBatchDlcTransactionsRequestStruct {
+  std::vector<int64_t> local_payouts;                    //!< local_payouts  // NOLINT
+  std::vector<int64_t> remote_payouts;                   //!< remote_payouts  // NOLINT
+  std::vector<std::string> local_fund_pubkeys;           //!< local_fund_pubkeys  // NOLINT
+  std::vector<std::string> local_final_script_pubkeys;   //!< local_final_script_pubkeys  // NOLINT
+  std::vector<std::string> remote_fund_pubkeys;          //!< remote_fund_pubkeys  // NOLINT
+  std::vector<std::string> remote_final_script_pubkeys;  //!< remote_final_script_pubkeys  // NOLINT
+  uint64_t local_input_amount = 0;                       //!< local_input_amount  // NOLINT
+  std::vector<int64_t> local_collateral_amounts;         //!< local_collateral_amounts  // NOLINT
+  std::vector<int64_t> local_payout_serial_ids;          //!< local_payout_serial_ids  // NOLINT
+  uint64_t local_change_serial_id = 0;                   //!< local_change_serial_id  // NOLINT
+  uint64_t remote_input_amount = 0;                      //!< remote_input_amount  // NOLINT
+  std::vector<int64_t> remote_collateral_amounts;        //!< remote_collateral_amounts  // NOLINT
+  std::vector<int64_t> remote_payout_serial_ids;         //!< remote_payout_serial_ids  // NOLINT
+  uint64_t remote_change_serial_id = 0;                  //!< remote_change_serial_id  // NOLINT
+  std::vector<int64_t> refund_locktimes;                 //!< refund_locktimes  // NOLINT
+  std::vector<TxInInfoRequestStruct> local_inputs;       //!< local_inputs  // NOLINT
+  std::string local_change_script_pubkey = "";           //!< local_change_script_pubkey  // NOLINT
+  std::vector<TxInInfoRequestStruct> remote_inputs;      //!< remote_inputs  // NOLINT
+  std::string remote_change_script_pubkey = "";          //!< remote_change_script_pubkey  // NOLINT
+  uint32_t fee_rate = 0;                                 //!< fee_rate  // NOLINT
+  uint64_t cet_lock_time = 0;                            //!< cet_lock_time  // NOLINT
+  uint64_t fund_lock_time = 0;                           //!< fund_lock_time  // NOLINT
+  std::vector<int64_t> fund_output_serial_ids;           //!< fund_output_serial_ids  // NOLINT
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
+// CreateBatchDlcTransactionsResponseStruct
+// ------------------------------------------------------------------------
+/**
+ * @brief CreateBatchDlcTransactionsResponseStruct struct
+ */
+struct CreateBatchDlcTransactionsResponseStruct {
+  std::string fund_tx_hex = "";                 //!< fund_tx_hex  // NOLINT
+  std::vector<std::string> cets_hex_list;       //!< cets_hex_list  // NOLINT
+  std::vector<std::string> refund_tx_hex_list;  //!< refund_tx_hex_list  // NOLINT
+  cfd::dlc::js::api::InnerErrorResponseStruct error;   //!< error information
+  std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
+};
+
+// ------------------------------------------------------------------------
 // CreateBatchFundTransactionRequestStruct
 // ------------------------------------------------------------------------
 /**
@@ -152,12 +199,10 @@ struct CreateBatchFundTransactionRequestStruct {
   std::vector<TxInInfoRequestStruct> remote_inputs;  //!< remote_inputs  // NOLINT
   TxOutRequestStruct remote_change;                  //!< remote_change  // NOLINT
   int64_t fee_rate = 1;                              //!< fee_rate  // NOLINT
-  std::vector<int64_t> output_serial_ids;            //!< output_serial_ids  // NOLINT
+  uint64_t lock_time = 0;                            //!< lock_time  // NOLINT
   uint64_t local_serial_id = 0;                      //!< local_serial_id  // NOLINT
   uint64_t remote_serial_id = 0;                     //!< remote_serial_id  // NOLINT
-  uint64_t lock_time = 0;                            //!< lock_time  // NOLINT
-  std::string option_dest = "";                      //!< option_dest  // NOLINT
-  uint64_t option_premium = 0;                       //!< option_premium  // NOLINT
+  std::vector<int64_t> output_serial_ids;            //!< output_serial_ids  // NOLINT
   std::set<std::string> ignore_items;   //!< using on JSON mapping convert.
 };
 

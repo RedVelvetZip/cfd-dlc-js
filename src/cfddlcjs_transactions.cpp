@@ -151,14 +151,10 @@ DlcTransactionsApi::CreateBatchFundTransaction(
     uint64_t local_serial_id = request.local_serial_id;
     uint64_t remote_serial_id = request.remote_serial_id;
 
-    auto option_premium = Amount::CreateBySatoshiAmount(request.option_premium);
-    auto option_dest =
-      request.option_dest == "" ? Address() : Address(request.option_dest);
-
     auto transaction = DlcManager::CreateBatchFundTransaction(
       local_pubkeys, remote_pubkeys, output_amounts, local_inputs, local_change,
-      remote_inputs, remote_change, output_serial_ids, local_serial_id,
-      remote_serial_id, lock_time, option_dest, option_premium);
+      remote_inputs, remote_change, lock_time, local_serial_id,
+      remote_serial_id, output_serial_ids);
 
     response.hex = transaction.GetHex();
     return response;
@@ -396,6 +392,121 @@ CreateDlcTransactionsResponseStruct DlcTransactionsApi::CreateDlcTransactions(
   CreateDlcTransactionsResponseStruct result;
   result = ExecuteStructApi<
     CreateDlcTransactionsRequestStruct, CreateDlcTransactionsResponseStruct>(
+    request, call_func, std::string(__FUNCTION__));
+  return result;
+}
+
+CreateBatchDlcTransactionsResponseStruct
+DlcTransactionsApi::CreateBatchDlcTransactions(
+  const CreateBatchDlcTransactionsRequestStruct &request) {
+  auto call_func = [](const CreateBatchDlcTransactionsRequestStruct &request)
+    -> CreateBatchDlcTransactionsResponseStruct {
+    std::vector<std::vector<DlcOutcome>> outcomes_list;
+    size_t num_pubkeys = request.local_fund_pubkeys.size();
+    size_t payouts_per_pubkey = request.local_payouts.size() / num_pubkeys;
+
+    for (size_t i = 0; i < num_pubkeys; ++i) {
+      std::vector<DlcOutcome> outcomes;
+      for (size_t j = i * payouts_per_pubkey; j < (i + 1) * payouts_per_pubkey;
+           ++j) {
+        DlcOutcome outcome;
+        outcome.local_payout =
+          Amount::CreateBySatoshiAmount(request.local_payouts[j]);
+        outcome.remote_payout =
+          Amount::CreateBySatoshiAmount(request.remote_payouts[j]);
+        outcomes.push_back(outcome);
+      }
+      outcomes_list.push_back(outcomes);
+    }
+
+    auto local_input_amount =
+      Amount::CreateBySatoshiAmount(request.local_input_amount);
+
+    auto remote_input_amount =
+      Amount::CreateBySatoshiAmount(request.remote_input_amount);
+
+    std::vector<Pubkey> local_fund_pubkeys;
+    std::vector<Pubkey> remote_fund_pubkeys;
+    std::vector<Script> local_final_script_pubkeys;
+    std::vector<Script> remote_final_script_pubkeys;
+    std::vector<Amount> local_collateral_amounts;
+    std::vector<Amount> remote_collateral_amounts;
+    std::vector<uint64_t> refund_locktimes;
+    std::vector<uint64_t> fund_output_serial_ids;
+    std::vector<uint64_t> local_payout_serial_ids;
+    std::vector<uint64_t> remote_payout_serial_ids;
+
+    for (size_t i = 0; i < request.local_fund_pubkeys.size(); ++i) {
+      local_fund_pubkeys.push_back(Pubkey(request.local_fund_pubkeys[i]));
+      remote_fund_pubkeys.push_back(Pubkey(request.remote_fund_pubkeys[i]));
+      local_final_script_pubkeys.push_back(
+        Script(request.local_final_script_pubkeys[i]));
+      remote_final_script_pubkeys.push_back(
+        Script(request.remote_final_script_pubkeys[i]));
+      local_collateral_amounts.push_back(
+        Amount::CreateBySatoshiAmount(request.local_collateral_amounts[i]));
+      remote_collateral_amounts.push_back(
+        Amount::CreateBySatoshiAmount(request.remote_collateral_amounts[i]));
+      refund_locktimes.push_back(request.refund_locktimes[i]);
+      fund_output_serial_ids.push_back(request.fund_output_serial_ids[i]);
+      local_payout_serial_ids.push_back(request.local_payout_serial_ids[i]);
+      remote_payout_serial_ids.push_back(request.remote_payout_serial_ids[i]);
+    }
+
+    uint64_t fund_lock_time = request.fund_lock_time;
+    uint64_t cet_lock_time = request.cet_lock_time;
+
+    std::vector<TxInputInfo> local_inputs;
+
+    for (auto input_request : request.local_inputs) {
+      local_inputs.push_back(ParseTxInRequest(input_request));
+    }
+
+    std::vector<TxInputInfo> remote_inputs;
+
+    for (auto input_request : request.remote_inputs) {
+      remote_inputs.push_back(ParseTxInRequest(input_request));
+    }
+
+    uint32_t fee_rate = request.fee_rate;
+
+    uint64_t local_change_serial_id = request.local_change_serial_id;
+    uint64_t remote_change_serial_id = request.remote_change_serial_id;
+
+    Script local_change_script_pubkey(request.local_change_script_pubkey);
+    Script remote_change_script_pubkey(request.remote_change_script_pubkey);
+
+    BatchPartyParams local_params = {
+      local_fund_pubkeys,         local_change_script_pubkey,
+      local_final_script_pubkeys, local_inputs,
+      local_input_amount,         local_collateral_amounts,
+      local_payout_serial_ids,    local_change_serial_id};
+    BatchPartyParams remote_params = {
+      remote_fund_pubkeys,         remote_change_script_pubkey,
+      remote_final_script_pubkeys, remote_inputs,
+      remote_input_amount,         remote_collateral_amounts,
+      remote_payout_serial_ids,    remote_change_serial_id};
+
+    auto transactions = DlcManager::CreateBatchDlcTransactions(
+      outcomes_list, local_params, remote_params, refund_locktimes, fee_rate,
+      fund_lock_time, cet_lock_time, fund_output_serial_ids);
+    CreateBatchDlcTransactionsResponseStruct result;
+    result.fund_tx_hex = transactions.fund_transaction.GetHex();
+    for (auto refund_tx : transactions.refund_transactions) {
+      result.refund_tx_hex_list.push_back(refund_tx.GetHex());
+    }
+    for (auto cet_list : transactions.cets_list) {
+      std::vector<std::string> temp_cet_list;
+      for (auto cet : cet_list) {
+        result.cets_hex_list.push_back(cet.GetHex());
+      }
+    }
+    return result;
+  };
+  CreateBatchDlcTransactionsResponseStruct result;
+  result = ExecuteStructApi<
+    CreateBatchDlcTransactionsRequestStruct,
+    CreateBatchDlcTransactionsResponseStruct>(
     request, call_func, std::string(__FUNCTION__));
   return result;
 }

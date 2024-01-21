@@ -33,6 +33,39 @@ export interface AddSignatureToFundTransactionResponse {
     hex: string;
 }
 
+/** Create Batch Dlc transactions */
+export interface CreateBatchDlcTransactionsRequest {
+    localPayouts: bigint | number[];
+    remotePayouts: bigint | number[];
+    localFundPubkeys: string[];
+    localFinalScriptPubkeys: string[];
+    remoteFundPubkeys: string[];
+    remoteFinalScriptPubkeys: string[];
+    localInputAmount: bigint | number;
+    localCollateralAmounts: bigint | number[];
+    localPayoutSerialIds: bigint | number[];
+    localChangeSerialId: bigint | number;
+    remoteInputAmount: bigint | number;
+    remoteCollateralAmounts: bigint | number[];
+    remotePayoutSerialIds: bigint | number[];
+    remoteChangeSerialId: bigint | number;
+    refundLocktimes: bigint | number[];
+    localInputs: TxInInfoRequest[];
+    localChangeScriptPubkey: string;
+    remoteInputs: TxInInfoRequest[];
+    remoteChangeScriptPubkey: string;
+    feeRate: number;
+    cetLockTime?: bigint | number;
+    fundLockTime?: bigint | number;
+    fundOutputSerialIds?: bigint | number[];
+}
+
+export interface CreateBatchDlcTransactionsResponse {
+    fundTxHex: string;
+    cetsHexList: string[];
+    refundTxHexList: string[];
+}
+
 /** Create a batch fund transaction */
 export interface CreateBatchFundTransactionRequest {
     localPubkeys: string[];
@@ -43,12 +76,10 @@ export interface CreateBatchFundTransactionRequest {
     remoteInputs: TxInInfoRequest[];
     remoteChange: TxOutRequest;
     feeRate: bigint | number;
-    outputSerialIds: bigint | number[];
+    lockTime?: bigint | number;
     localSerialId?: bigint | number;
     remoteSerialId?: bigint | number;
-    lockTime?: bigint | number;
-    optionDest?: string;
-    optionPremium?: bigint | number;
+    outputSerialIds: bigint | number[];
 }
 
 export interface CreateBatchFundTransactionResponse {
@@ -352,6 +383,12 @@ export function AddSignaturesToRefundTx(jsonObject: AddSignaturesToRefundTxReque
  * @return {AddSignatureToFundTransactionResponse} - response data.
  */
 export function AddSignatureToFundTransaction(jsonObject: AddSignatureToFundTransactionRequest): AddSignatureToFundTransactionResponse;
+
+/**
+ * @param {CreateBatchDlcTransactionsRequest} jsonObject - request data.
+ * @return {CreateBatchDlcTransactionsResponse} - response data.
+ */
+export function CreateBatchDlcTransactions(jsonObject: CreateBatchDlcTransactionsRequest): CreateBatchDlcTransactionsResponse;
 
 /**
  * @param {CreateBatchFundTransactionRequest} jsonObject - request data.

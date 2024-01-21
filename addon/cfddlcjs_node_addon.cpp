@@ -129,6 +129,11 @@ Value CreateDlcTransactions(const CallbackInfo &information) {
   return NodeAddonJsonApi(information, JsonMappingApi::CreateDlcTransactions);
 }
 
+Value CreateBatchDlcTransactions(const CallbackInfo &information) {
+  return NodeAddonJsonApi(
+    information, JsonMappingApi::CreateBatchDlcTransactions);
+}
+
 Value CreateCetAdaptorSignature(const CallbackInfo &information) {
   return NodeAddonJsonApi(
     information, JsonMappingApi::CreateCetAdaptorSignature);
@@ -197,6 +202,9 @@ void InitializeJsonApi(Env env, Object *exports) {
   exports->Set(
     String::New(env, "CreateDlcTransactions"),
     Function::New(env, CreateDlcTransactions));
+  exports->Set(
+    String::New(env, "CreateBatchDlcTransactions"),
+    Function::New(env, CreateBatchDlcTransactions));
   exports->Set(
     String::New(env, "CreateCetAdaptorSignature"),
     Function::New(env, CreateCetAdaptorSignature));

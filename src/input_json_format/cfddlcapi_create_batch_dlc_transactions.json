@@ -1,0 +1,74 @@
+{
+  "namespace": ["cfd", "dlc", "js", "api", "json"],
+  "request": {
+    ":class": "CreateBatchDlcTransactionsRequest",
+    ":class:comment": "Create Batch Dlc transactions",
+    "localPayouts": [0],
+    "remotePayouts": [0],
+    "localFundPubkeys": [""],
+    "localFinalScriptPubkeys": [""],
+    "remoteFundPubkeys": [""],
+    "remoteFinalScriptPubkeys": [""],
+    "localInputAmount": 0,
+    "localInputAmount:type": "uint64_t",
+    "localCollateralAmounts": [0],
+    "localPayoutSerialIds": [0],
+    "localChangeSerialId": 0,
+    "localChangeSerialId:type": "uint64_t",
+    "remoteInputAmount": 0,
+    "remoteInputAmount:type": "uint64_t",
+    "remoteCollateralAmounts": [0],
+    "remotePayoutSerialIds": [0],
+    "remoteChangeSerialId": 0,
+    "remoteChangeSerialId:type": "uint64_t",
+    "refundLocktimes": [0],
+    "localInputs": [
+      {
+        ":class": "TxInInfoRequest",
+        "txid": "",
+        "vout": 0,
+        "vout:type": "uint32_t",
+        "redeemScript": "",
+        "redeemScript:require": "optional",
+        "maxWitnessLength": 108,
+        "maxWitnessLength:type": "uint32_t",
+        "inputSerialId": 0,
+        "inputSerialId:type": "uint64_t",
+        "inputSerialId:require": "optional"
+      }
+    ],
+    "localChangeScriptPubkey": "",
+    "remoteInputs": [
+      {
+        ":class": "TxInInfoRequest",
+        "txid": "",
+        "vout": 0,
+        "vout:type": "uint32_t",
+        "redeemScript": "",
+        "redeemScript:require": "optional",
+        "maxWitnessLength": 108,
+        "maxWitnessLength:type": "uint32_t",
+        "inputSerialId": 0,
+        "inputSerialId:type": "uint64_t",
+        "inputSerialId:require": "optional"
+      }
+    ],
+    "remoteChangeScriptPubkey": "",
+    "feeRate": 0,
+    "feeRate:type": "uint32_t",
+    "cetLockTime": 0,
+    "cetLockTime:type": "uint64_t",
+    "cetLockTime:require": "optional",
+    "fundLockTime": 0,
+    "fundLockTime:type": "uint64_t",
+    "fundLockTime:require": "optional",
+    "fundOutputSerialIds": [0],
+    "fundOutputSerialIds:require": "optional"
+  },
+  "response": {
+    ":class": "CreateBatchDlcTransactionsResponse",
+    "fundTxHex": "",
+    "cetsHexList": [""],
+    "refundTxHexList": [""]
+  }
+}

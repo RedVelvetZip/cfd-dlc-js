@@ -1,53 +1,31 @@
 import * as CfdUtils from "../../cfd_utils";
 
-export const OraclePrivkey =
-  "ded9a76a0a77399e1c2676324118a0386004633f16245ad30d172b15c1f9e2d3";
-export const OraclePubkey = CfdUtils.GetSchnorrPubkeyFromPrivkey(
-  OraclePrivkey
-);
-export const OracleKValue =
-  "be3cc8de25c50e25f69e2f88d151e3f63e99c3a44fed2bdd2e3ee70fe141c5c3";
+export const OraclePrivkey = "ded9a76a0a77399e1c2676324118a0386004633f16245ad30d172b15c1f9e2d3";
+export const OraclePubkey = CfdUtils.GetSchnorrPubkeyFromPrivkey(OraclePrivkey);
+export const OracleKValue = "be3cc8de25c50e25f69e2f88d151e3f63e99c3a44fed2bdd2e3ee70fe141c5c3";
 export const OracleRPoint = CfdUtils.GetSchnorrPubkeyFromPrivkey(OracleKValue);
-export const LocalFundPrivkey =
-  "0000000000000000000000000000000000000000000000000000000000000001";
+export const LocalFundPrivkey = "0000000000000000000000000000000000000000000000000000000000000001";
 export const LocalFundPubkey = CfdUtils.GetPubkeyFromPrivkey(LocalFundPrivkey);
-export const RemoteFundPrivkey =
-  "0000000000000000000000000000000000000000000000000000000000000002";
-export const RemoteFundPubkey = CfdUtils.GetPubkeyFromPrivkey(
-  RemoteFundPrivkey
-);
-export const LocalSweepPrivkey =
-  "0000000000000000000000000000000000000000000000000000000000000003";
-export const LocalSweepPubkey = CfdUtils.GetPubkeyFromPrivkey(
-  LocalSweepPrivkey
-);
-export const RemoteSweepPrivkey =
-  "0000000000000000000000000000000000000000000000000000000000000004";
-export const RemoteSweepPubkey = CfdUtils.GetPubkeyFromPrivkey(
-  RemoteSweepPrivkey
-);
-export const LocalInputPrivkey =
-  "0000000000000000000000000000000000000000000000000000000000000005";
-export const LocalInputPubkey = CfdUtils.GetPubkeyFromPrivkey(
-  LocalInputPrivkey
-);
-export const RemoteInputPrivkey =
-  "0000000000000000000000000000000000000000000000000000000000000006";
-export const RemoteInputPubkey = CfdUtils.GetPubkeyFromPrivkey(
-  RemoteInputPrivkey
-);
-export const LocalFundPrivkey2 =
-  "0000000000000000000000000000000000000000000000000000000000000007";
-export const LocalFundPubkey2 = CfdUtils.GetPubkeyFromPrivkey(
-  LocalFundPrivkey2);
-export const RemoteFundPrivkey2 =
-  "0000000000000000000000000000000000000000000000000000000000000008";
-export const RemoteFundPubkey2 = CfdUtils.GetPubkeyFromPrivkey(
-  RemoteFundPrivkey2);
+export const RemoteFundPrivkey = "0000000000000000000000000000000000000000000000000000000000000002";
+export const RemoteFundPubkey = CfdUtils.GetPubkeyFromPrivkey(RemoteFundPrivkey);
+export const LocalSweepPrivkey = "0000000000000000000000000000000000000000000000000000000000000003";
+export const LocalSweepPubkey = CfdUtils.GetPubkeyFromPrivkey(LocalSweepPrivkey);
+export const RemoteSweepPrivkey = "0000000000000000000000000000000000000000000000000000000000000004";
+export const RemoteSweepPubkey = CfdUtils.GetPubkeyFromPrivkey(RemoteSweepPrivkey);
+export const LocalInputPrivkey = "0000000000000000000000000000000000000000000000000000000000000005";
+export const LocalInputPubkey = CfdUtils.GetPubkeyFromPrivkey(LocalInputPrivkey);
+export const RemoteInputPrivkey = "0000000000000000000000000000000000000000000000000000000000000006";
+export const RemoteInputPubkey = CfdUtils.GetPubkeyFromPrivkey(RemoteInputPrivkey);
+export const LocalFundPrivkey2 = "0000000000000000000000000000000000000000000000000000000000000007";
+export const LocalFundPubkey2 = CfdUtils.GetPubkeyFromPrivkey(LocalFundPrivkey2);
+export const RemoteFundPrivkey2 = "0000000000000000000000000000000000000000000000000000000000000008";
+export const RemoteFundPubkey2 = CfdUtils.GetPubkeyFromPrivkey(RemoteFundPrivkey2);
 export const LocalInputAmount = 5000000000;
 export const RemoteInputAmount = 5000000000;
 export const LocalCollateralAmount = 100000000;
 export const RemoteCollateralAmount = 100000000;
+export const LocalCollateralAmount2 = 100000000;
+export const RemoteCollateralAmount2 = 100000000;
 export const FundInputAmount = 200000170;
 export const FundInputAmount1 = 100000085;
 export const FundInputAmount2 = 100000085;
@@ -65,13 +43,7 @@ export const Payouts = [
 ];
 export const WinMessage = "WIN";
 export const LoseMessage = "LOSE";
-export const OracleSignature = CfdUtils.SchnorrSign(
-  WinMessage,
-  OraclePrivkey,
-  OracleKValue,
-  false,
-  true
-);
+export const OracleSignature = CfdUtils.SchnorrSign(WinMessage, OraclePrivkey, OracleKValue, false, true);
 export const Messages = [WinMessage, LoseMessage];
 export const LocalInputs = [
   {
@@ -85,24 +57,20 @@ export const RemoteInputs = [
     vout: 0,
   },
 ];
-export const LocalChangeAddress =
-  "bcrt1qlgmznucxpdkp5k3ktsct7eh6qrc4tju7ktjukn";
-export const RemoteChangeAddress =
-  "bcrt1qvh2dvgjctwh4z5w7sc93u7h4sug0yrdz2lgpqf";
-export const LocalFinalAddress =
-  "bcrt1qthklh702txwafc72d2qtxv7ywt7sk0mfv7esk7";
-export const RemoteFinalAddress =
-  "bcrt1qjefds6ld7sadyepk9ehxawnwkaj9pqf8wnz54j";
+export const LocalChangeAddress = "bcrt1qlgmznucxpdkp5k3ktsct7eh6qrc4tju7ktjukn";
+export const RemoteChangeAddress = "bcrt1qvh2dvgjctwh4z5w7sc93u7h4sug0yrdz2lgpqf";
+export const LocalFinalAddress = "bcrt1qthklh702txwafc72d2qtxv7ywt7sk0mfv7esk7";
+export const RemoteFinalAddress = "bcrt1qjefds6ld7sadyepk9ehxawnwkaj9pqf8wnz54j";
+export const LocalFinalAddress2 = "bcrt1qthklh702txwafc72d2qtxv7ywt7sk0mfv7esk7";
+export const RemoteFinalAddress2 = "bcrt1qjefds6ld7sadyepk9ehxawnwkaj9pqf8wnz54j";
 export const MaturityTime = 1579072156;
-export const FundTxId =
-  "c371cfe829d31c1d18f6f638047d44e5e2617d659ebdd43b83b04da32e864692";
-export const CetTxId =
-  "453a36e55bb2576387e86377d07e02e4c7ed1ca0e12090a4fb61d0d87f2b1ed8";
+export const FundTxId = "c371cfe829d31c1d18f6f638047d44e5e2617d659ebdd43b83b04da32e864692";
+export const CetTxId = "453a36e55bb2576387e86377d07e02e4c7ed1ca0e12090a4fb61d0d87f2b1ed8";
 
 export const FundTxHexUnsigned =
   "02000000024f601442e48eec22ff3a907c5f5290c6a0d3d08fb869e46ebfbaa9226b6d26830000000000ffffffff98bbd477219a151a1daf5377b30e8c5f9fb574783943f33ac523ef072fa292bc0000000000ffffffff03aac2eb0b000000002200209b984c7bae3efddc3a3f0a20ff81bfe89ed1fe07ff13e562149ee654bed845db2d10102401000000160014fa3629f3060b6c1a5a365c30bf66fa00f155cb9e2d1010240100000016001465d4d622585baf5151de860b1e7af58710f20da200000000";
 export const BatchFundTxHexUnsigned =
-  "02000000024f601442e48eec22ff3a907c5f5290c6a0d3d08fb869e46ebfbaa9226b6d26830000000000ffffffff98bbd477219a151a1daf5377b30e8c5f9fb574783943f33ac523ef072fa292bc0000000000ffffffff0455e1f505000000002200209b984c7bae3efddc3a3f0a20ff81bfe89ed1fe07ff13e562149ee654bed845db2d10102401000000160014fa3629f3060b6c1a5a365c30bf66fa00f155cb9e2d1010240100000016001465d4d622585baf5151de860b1e7af58710f20da255e1f50500000000220020cecc2aa16a075ed1c8c535ed0393ed0bc1657ef025d37e0b87eebc296785d1fe00000000"
+  "02000000024f601442e48eec22ff3a907c5f5290c6a0d3d08fb869e46ebfbaa9226b6d26830000000000ffffffff98bbd477219a151a1daf5377b30e8c5f9fb574783943f33ac523ef072fa292bc0000000000ffffffff0455e1f505000000002200209b984c7bae3efddc3a3f0a20ff81bfe89ed1fe07ff13e562149ee654bed845db2d10102401000000160014fa3629f3060b6c1a5a365c30bf66fa00f155cb9e2d1010240100000016001465d4d622585baf5151de860b1e7af58710f20da255e1f50500000000220020cecc2aa16a075ed1c8c535ed0393ed0bc1657ef025d37e0b87eebc296785d1fe00000000";
 export const FundTxHexLocalSigned =
   "020000000001024f601442e48eec22ff3a907c5f5290c6a0d3d08fb869e46ebfbaa9226b6d26830000000000ffffffff98bbd477219a151a1daf5377b30e8c5f9fb574783943f33ac523ef072fa292bc0000000000ffffffff03aac2eb0b000000002200209b984c7bae3efddc3a3f0a20ff81bfe89ed1fe07ff13e562149ee654bed845db2d10102401000000160014fa3629f3060b6c1a5a365c30bf66fa00f155cb9e2d1010240100000016001465d4d622585baf5151de860b1e7af58710f20da20247304402206d7181ec4d126c5e6bbf5ae65ee0297610f4f0d28a03ba6d782e651b136a6bd502200458622a92e2df148f90df85a2ebc402dd3aef43a10821c16e8739426ba808a00121022f8bde4d1a07209355b4a7250a5c5128e88b84bddc619ab7cba8d569b240efe40000000000";
 export const FundTxLocalRawSignature =

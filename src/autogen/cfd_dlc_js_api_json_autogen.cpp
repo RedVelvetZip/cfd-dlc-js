@@ -439,6 +439,294 @@ AddSignaturesToRefundTxResponseStruct AddSignaturesToRefundTxResponse::ConvertTo
 }
 
 // ------------------------------------------------------------------------
+// CreateBatchDlcTransactionsRequest
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<CreateBatchDlcTransactionsRequest>
+  CreateBatchDlcTransactionsRequest::json_mapper;
+std::vector<std::string> CreateBatchDlcTransactionsRequest::item_list;
+
+void CreateBatchDlcTransactionsRequest::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<CreateBatchDlcTransactionsRequest> func_table;  // NOLINT
+
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetLocalPayoutsString,
+    CreateBatchDlcTransactionsRequest::SetLocalPayoutsString,
+    CreateBatchDlcTransactionsRequest::GetLocalPayoutsFieldType,
+  };
+  json_mapper.emplace("localPayouts", func_table);
+  item_list.push_back("localPayouts");
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetRemotePayoutsString,
+    CreateBatchDlcTransactionsRequest::SetRemotePayoutsString,
+    CreateBatchDlcTransactionsRequest::GetRemotePayoutsFieldType,
+  };
+  json_mapper.emplace("remotePayouts", func_table);
+  item_list.push_back("remotePayouts");
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetLocalFundPubkeysString,
+    CreateBatchDlcTransactionsRequest::SetLocalFundPubkeysString,
+    CreateBatchDlcTransactionsRequest::GetLocalFundPubkeysFieldType,
+  };
+  json_mapper.emplace("localFundPubkeys", func_table);
+  item_list.push_back("localFundPubkeys");
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetLocalFinalScriptPubkeysString,
+    CreateBatchDlcTransactionsRequest::SetLocalFinalScriptPubkeysString,
+    CreateBatchDlcTransactionsRequest::GetLocalFinalScriptPubkeysFieldType,
+  };
+  json_mapper.emplace("localFinalScriptPubkeys", func_table);
+  item_list.push_back("localFinalScriptPubkeys");
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetRemoteFundPubkeysString,
+    CreateBatchDlcTransactionsRequest::SetRemoteFundPubkeysString,
+    CreateBatchDlcTransactionsRequest::GetRemoteFundPubkeysFieldType,
+  };
+  json_mapper.emplace("remoteFundPubkeys", func_table);
+  item_list.push_back("remoteFundPubkeys");
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetRemoteFinalScriptPubkeysString,
+    CreateBatchDlcTransactionsRequest::SetRemoteFinalScriptPubkeysString,
+    CreateBatchDlcTransactionsRequest::GetRemoteFinalScriptPubkeysFieldType,
+  };
+  json_mapper.emplace("remoteFinalScriptPubkeys", func_table);
+  item_list.push_back("remoteFinalScriptPubkeys");
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetLocalInputAmountString,
+    CreateBatchDlcTransactionsRequest::SetLocalInputAmountString,
+    CreateBatchDlcTransactionsRequest::GetLocalInputAmountFieldType,
+  };
+  json_mapper.emplace("localInputAmount", func_table);
+  item_list.push_back("localInputAmount");
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetLocalCollateralAmountsString,
+    CreateBatchDlcTransactionsRequest::SetLocalCollateralAmountsString,
+    CreateBatchDlcTransactionsRequest::GetLocalCollateralAmountsFieldType,
+  };
+  json_mapper.emplace("localCollateralAmounts", func_table);
+  item_list.push_back("localCollateralAmounts");
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetLocalPayoutSerialIdsString,
+    CreateBatchDlcTransactionsRequest::SetLocalPayoutSerialIdsString,
+    CreateBatchDlcTransactionsRequest::GetLocalPayoutSerialIdsFieldType,
+  };
+  json_mapper.emplace("localPayoutSerialIds", func_table);
+  item_list.push_back("localPayoutSerialIds");
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetLocalChangeSerialIdString,
+    CreateBatchDlcTransactionsRequest::SetLocalChangeSerialIdString,
+    CreateBatchDlcTransactionsRequest::GetLocalChangeSerialIdFieldType,
+  };
+  json_mapper.emplace("localChangeSerialId", func_table);
+  item_list.push_back("localChangeSerialId");
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetRemoteInputAmountString,
+    CreateBatchDlcTransactionsRequest::SetRemoteInputAmountString,
+    CreateBatchDlcTransactionsRequest::GetRemoteInputAmountFieldType,
+  };
+  json_mapper.emplace("remoteInputAmount", func_table);
+  item_list.push_back("remoteInputAmount");
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetRemoteCollateralAmountsString,
+    CreateBatchDlcTransactionsRequest::SetRemoteCollateralAmountsString,
+    CreateBatchDlcTransactionsRequest::GetRemoteCollateralAmountsFieldType,
+  };
+  json_mapper.emplace("remoteCollateralAmounts", func_table);
+  item_list.push_back("remoteCollateralAmounts");
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetRemotePayoutSerialIdsString,
+    CreateBatchDlcTransactionsRequest::SetRemotePayoutSerialIdsString,
+    CreateBatchDlcTransactionsRequest::GetRemotePayoutSerialIdsFieldType,
+  };
+  json_mapper.emplace("remotePayoutSerialIds", func_table);
+  item_list.push_back("remotePayoutSerialIds");
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetRemoteChangeSerialIdString,
+    CreateBatchDlcTransactionsRequest::SetRemoteChangeSerialIdString,
+    CreateBatchDlcTransactionsRequest::GetRemoteChangeSerialIdFieldType,
+  };
+  json_mapper.emplace("remoteChangeSerialId", func_table);
+  item_list.push_back("remoteChangeSerialId");
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetRefundLocktimesString,
+    CreateBatchDlcTransactionsRequest::SetRefundLocktimesString,
+    CreateBatchDlcTransactionsRequest::GetRefundLocktimesFieldType,
+  };
+  json_mapper.emplace("refundLocktimes", func_table);
+  item_list.push_back("refundLocktimes");
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetLocalInputsString,
+    CreateBatchDlcTransactionsRequest::SetLocalInputsString,
+    CreateBatchDlcTransactionsRequest::GetLocalInputsFieldType,
+  };
+  json_mapper.emplace("localInputs", func_table);
+  item_list.push_back("localInputs");
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetLocalChangeScriptPubkeyString,
+    CreateBatchDlcTransactionsRequest::SetLocalChangeScriptPubkeyString,
+    CreateBatchDlcTransactionsRequest::GetLocalChangeScriptPubkeyFieldType,
+  };
+  json_mapper.emplace("localChangeScriptPubkey", func_table);
+  item_list.push_back("localChangeScriptPubkey");
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetRemoteInputsString,
+    CreateBatchDlcTransactionsRequest::SetRemoteInputsString,
+    CreateBatchDlcTransactionsRequest::GetRemoteInputsFieldType,
+  };
+  json_mapper.emplace("remoteInputs", func_table);
+  item_list.push_back("remoteInputs");
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetRemoteChangeScriptPubkeyString,
+    CreateBatchDlcTransactionsRequest::SetRemoteChangeScriptPubkeyString,
+    CreateBatchDlcTransactionsRequest::GetRemoteChangeScriptPubkeyFieldType,
+  };
+  json_mapper.emplace("remoteChangeScriptPubkey", func_table);
+  item_list.push_back("remoteChangeScriptPubkey");
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetFeeRateString,
+    CreateBatchDlcTransactionsRequest::SetFeeRateString,
+    CreateBatchDlcTransactionsRequest::GetFeeRateFieldType,
+  };
+  json_mapper.emplace("feeRate", func_table);
+  item_list.push_back("feeRate");
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetCetLockTimeString,
+    CreateBatchDlcTransactionsRequest::SetCetLockTimeString,
+    CreateBatchDlcTransactionsRequest::GetCetLockTimeFieldType,
+  };
+  json_mapper.emplace("cetLockTime", func_table);
+  item_list.push_back("cetLockTime");
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetFundLockTimeString,
+    CreateBatchDlcTransactionsRequest::SetFundLockTimeString,
+    CreateBatchDlcTransactionsRequest::GetFundLockTimeFieldType,
+  };
+  json_mapper.emplace("fundLockTime", func_table);
+  item_list.push_back("fundLockTime");
+  func_table = {
+    CreateBatchDlcTransactionsRequest::GetFundOutputSerialIdsString,
+    CreateBatchDlcTransactionsRequest::SetFundOutputSerialIdsString,
+    CreateBatchDlcTransactionsRequest::GetFundOutputSerialIdsFieldType,
+  };
+  json_mapper.emplace("fundOutputSerialIds", func_table);
+  item_list.push_back("fundOutputSerialIds");
+}
+
+void CreateBatchDlcTransactionsRequest::ConvertFromStruct(
+    const CreateBatchDlcTransactionsRequestStruct& data) {
+  local_payouts_.ConvertFromStruct(data.local_payouts);
+  remote_payouts_.ConvertFromStruct(data.remote_payouts);
+  local_fund_pubkeys_.ConvertFromStruct(data.local_fund_pubkeys);
+  local_final_script_pubkeys_.ConvertFromStruct(
+      data.local_final_script_pubkeys);
+  remote_fund_pubkeys_.ConvertFromStruct(data.remote_fund_pubkeys);
+  remote_final_script_pubkeys_.ConvertFromStruct(
+      data.remote_final_script_pubkeys);
+  local_input_amount_ = data.local_input_amount;
+  local_collateral_amounts_.ConvertFromStruct(data.local_collateral_amounts);
+  local_payout_serial_ids_.ConvertFromStruct(data.local_payout_serial_ids);
+  local_change_serial_id_ = data.local_change_serial_id;
+  remote_input_amount_ = data.remote_input_amount;
+  remote_collateral_amounts_.ConvertFromStruct(data.remote_collateral_amounts);
+  remote_payout_serial_ids_.ConvertFromStruct(data.remote_payout_serial_ids);
+  remote_change_serial_id_ = data.remote_change_serial_id;
+  refund_locktimes_.ConvertFromStruct(data.refund_locktimes);
+  local_inputs_.ConvertFromStruct(data.local_inputs);
+  local_change_script_pubkey_ = data.local_change_script_pubkey;
+  remote_inputs_.ConvertFromStruct(data.remote_inputs);
+  remote_change_script_pubkey_ = data.remote_change_script_pubkey;
+  fee_rate_ = data.fee_rate;
+  cet_lock_time_ = data.cet_lock_time;
+  fund_lock_time_ = data.fund_lock_time;
+  fund_output_serial_ids_.ConvertFromStruct(data.fund_output_serial_ids);
+  ignore_items = data.ignore_items;
+}
+
+CreateBatchDlcTransactionsRequestStruct CreateBatchDlcTransactionsRequest::ConvertToStruct() const {  // NOLINT
+  CreateBatchDlcTransactionsRequestStruct result;
+  result.local_payouts = local_payouts_.ConvertToStruct();
+  result.remote_payouts = remote_payouts_.ConvertToStruct();
+  result.local_fund_pubkeys = local_fund_pubkeys_.ConvertToStruct();
+  result.local_final_script_pubkeys = local_final_script_pubkeys_.ConvertToStruct();  // NOLINT
+  result.remote_fund_pubkeys = remote_fund_pubkeys_.ConvertToStruct();
+  result.remote_final_script_pubkeys = remote_final_script_pubkeys_.ConvertToStruct();  // NOLINT
+  result.local_input_amount = local_input_amount_;
+  result.local_collateral_amounts = local_collateral_amounts_.ConvertToStruct();
+  result.local_payout_serial_ids = local_payout_serial_ids_.ConvertToStruct();
+  result.local_change_serial_id = local_change_serial_id_;
+  result.remote_input_amount = remote_input_amount_;
+  result.remote_collateral_amounts = remote_collateral_amounts_.ConvertToStruct();  // NOLINT
+  result.remote_payout_serial_ids = remote_payout_serial_ids_.ConvertToStruct();
+  result.remote_change_serial_id = remote_change_serial_id_;
+  result.refund_locktimes = refund_locktimes_.ConvertToStruct();
+  result.local_inputs = local_inputs_.ConvertToStruct();
+  result.local_change_script_pubkey = local_change_script_pubkey_;
+  result.remote_inputs = remote_inputs_.ConvertToStruct();
+  result.remote_change_script_pubkey = remote_change_script_pubkey_;
+  result.fee_rate = fee_rate_;
+  result.cet_lock_time = cet_lock_time_;
+  result.fund_lock_time = fund_lock_time_;
+  result.fund_output_serial_ids = fund_output_serial_ids_.ConvertToStruct();
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
+// CreateBatchDlcTransactionsResponse
+// ------------------------------------------------------------------------
+cfd::core::JsonTableMap<CreateBatchDlcTransactionsResponse>
+  CreateBatchDlcTransactionsResponse::json_mapper;
+std::vector<std::string> CreateBatchDlcTransactionsResponse::item_list;
+
+void CreateBatchDlcTransactionsResponse::CollectFieldName() {
+  if (!json_mapper.empty()) {
+    return;
+  }
+  cfd::core::CLASS_FUNCTION_TABLE<CreateBatchDlcTransactionsResponse> func_table;  // NOLINT
+
+  func_table = {
+    CreateBatchDlcTransactionsResponse::GetFundTxHexString,
+    CreateBatchDlcTransactionsResponse::SetFundTxHexString,
+    CreateBatchDlcTransactionsResponse::GetFundTxHexFieldType,
+  };
+  json_mapper.emplace("fundTxHex", func_table);
+  item_list.push_back("fundTxHex");
+  func_table = {
+    CreateBatchDlcTransactionsResponse::GetCetsHexListString,
+    CreateBatchDlcTransactionsResponse::SetCetsHexListString,
+    CreateBatchDlcTransactionsResponse::GetCetsHexListFieldType,
+  };
+  json_mapper.emplace("cetsHexList", func_table);
+  item_list.push_back("cetsHexList");
+  func_table = {
+    CreateBatchDlcTransactionsResponse::GetRefundTxHexListString,
+    CreateBatchDlcTransactionsResponse::SetRefundTxHexListString,
+    CreateBatchDlcTransactionsResponse::GetRefundTxHexListFieldType,
+  };
+  json_mapper.emplace("refundTxHexList", func_table);
+  item_list.push_back("refundTxHexList");
+}
+
+void CreateBatchDlcTransactionsResponse::ConvertFromStruct(
+    const CreateBatchDlcTransactionsResponseStruct& data) {
+  fund_tx_hex_ = data.fund_tx_hex;
+  cets_hex_list_.ConvertFromStruct(data.cets_hex_list);
+  refund_tx_hex_list_.ConvertFromStruct(data.refund_tx_hex_list);
+  ignore_items = data.ignore_items;
+}
+
+CreateBatchDlcTransactionsResponseStruct CreateBatchDlcTransactionsResponse::ConvertToStruct() const {  // NOLINT
+  CreateBatchDlcTransactionsResponseStruct result;
+  result.fund_tx_hex = fund_tx_hex_;
+  result.cets_hex_list = cets_hex_list_.ConvertToStruct();
+  result.refund_tx_hex_list = refund_tx_hex_list_.ConvertToStruct();
+  result.ignore_items = ignore_items;
+  return result;
+}
+
+// ------------------------------------------------------------------------
 // CreateBatchFundTransactionRequest
 // ------------------------------------------------------------------------
 cfd::core::JsonTableMap<CreateBatchFundTransactionRequest>
@@ -508,12 +796,12 @@ void CreateBatchFundTransactionRequest::CollectFieldName() {
   json_mapper.emplace("feeRate", func_table);
   item_list.push_back("feeRate");
   func_table = {
-    CreateBatchFundTransactionRequest::GetOutputSerialIdsString,
-    CreateBatchFundTransactionRequest::SetOutputSerialIdsString,
-    CreateBatchFundTransactionRequest::GetOutputSerialIdsFieldType,
+    CreateBatchFundTransactionRequest::GetLockTimeString,
+    CreateBatchFundTransactionRequest::SetLockTimeString,
+    CreateBatchFundTransactionRequest::GetLockTimeFieldType,
   };
-  json_mapper.emplace("outputSerialIds", func_table);
-  item_list.push_back("outputSerialIds");
+  json_mapper.emplace("lockTime", func_table);
+  item_list.push_back("lockTime");
   func_table = {
     CreateBatchFundTransactionRequest::GetLocalSerialIdString,
     CreateBatchFundTransactionRequest::SetLocalSerialIdString,
@@ -529,26 +817,12 @@ void CreateBatchFundTransactionRequest::CollectFieldName() {
   json_mapper.emplace("remoteSerialId", func_table);
   item_list.push_back("remoteSerialId");
   func_table = {
-    CreateBatchFundTransactionRequest::GetLockTimeString,
-    CreateBatchFundTransactionRequest::SetLockTimeString,
-    CreateBatchFundTransactionRequest::GetLockTimeFieldType,
+    CreateBatchFundTransactionRequest::GetOutputSerialIdsString,
+    CreateBatchFundTransactionRequest::SetOutputSerialIdsString,
+    CreateBatchFundTransactionRequest::GetOutputSerialIdsFieldType,
   };
-  json_mapper.emplace("lockTime", func_table);
-  item_list.push_back("lockTime");
-  func_table = {
-    CreateBatchFundTransactionRequest::GetOptionDestString,
-    CreateBatchFundTransactionRequest::SetOptionDestString,
-    CreateBatchFundTransactionRequest::GetOptionDestFieldType,
-  };
-  json_mapper.emplace("optionDest", func_table);
-  item_list.push_back("optionDest");
-  func_table = {
-    CreateBatchFundTransactionRequest::GetOptionPremiumString,
-    CreateBatchFundTransactionRequest::SetOptionPremiumString,
-    CreateBatchFundTransactionRequest::GetOptionPremiumFieldType,
-  };
-  json_mapper.emplace("optionPremium", func_table);
-  item_list.push_back("optionPremium");
+  json_mapper.emplace("outputSerialIds", func_table);
+  item_list.push_back("outputSerialIds");
 }
 
 void CreateBatchFundTransactionRequest::ConvertFromStruct(
@@ -561,12 +835,10 @@ void CreateBatchFundTransactionRequest::ConvertFromStruct(
   remote_inputs_.ConvertFromStruct(data.remote_inputs);
   remote_change_.ConvertFromStruct(data.remote_change);
   fee_rate_ = data.fee_rate;
-  output_serial_ids_.ConvertFromStruct(data.output_serial_ids);
+  lock_time_ = data.lock_time;
   local_serial_id_ = data.local_serial_id;
   remote_serial_id_ = data.remote_serial_id;
-  lock_time_ = data.lock_time;
-  option_dest_ = data.option_dest;
-  option_premium_ = data.option_premium;
+  output_serial_ids_.ConvertFromStruct(data.output_serial_ids);
   ignore_items = data.ignore_items;
 }
 
@@ -580,12 +852,10 @@ CreateBatchFundTransactionRequestStruct CreateBatchFundTransactionRequest::Conve
   result.remote_inputs = remote_inputs_.ConvertToStruct();
   result.remote_change = remote_change_.ConvertToStruct();
   result.fee_rate = fee_rate_;
-  result.output_serial_ids = output_serial_ids_.ConvertToStruct();
+  result.lock_time = lock_time_;
   result.local_serial_id = local_serial_id_;
   result.remote_serial_id = remote_serial_id_;
-  result.lock_time = lock_time_;
-  result.option_dest = option_dest_;
-  result.option_premium = option_premium_;
+  result.output_serial_ids = output_serial_ids_.ConvertToStruct();
   result.ignore_items = ignore_items;
   return result;
 }

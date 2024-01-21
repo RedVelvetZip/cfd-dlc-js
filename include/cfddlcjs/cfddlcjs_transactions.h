@@ -53,6 +53,8 @@ class DlcTransactionsApi {
   CreateRefundTransaction(const CreateRefundTransactionRequestStruct &request);
   static CreateDlcTransactionsResponseStruct
   CreateDlcTransactions(const CreateDlcTransactionsRequestStruct &request);
+  static CreateBatchDlcTransactionsResponseStruct CreateBatchDlcTransactions(
+    const CreateBatchDlcTransactionsRequestStruct &request);
   static CreateCetAdaptorSignatureResponseStruct CreateCetAdaptorSignature(
     const CreateCetAdaptorSignatureRequestStruct &request);
   static CreateCetAdaptorSignaturesResponseStruct CreateCetAdaptorSignatures(
