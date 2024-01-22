@@ -466,6 +466,13 @@ void CreateBatchDlcTransactionsRequest::CollectFieldName() {
   json_mapper.emplace("remotePayouts", func_table);
   item_list.push_back("remotePayouts");
   func_table = {
+    CreateBatchDlcTransactionsRequest::GetNumPayoutsString,
+    CreateBatchDlcTransactionsRequest::SetNumPayoutsString,
+    CreateBatchDlcTransactionsRequest::GetNumPayoutsFieldType,
+  };
+  json_mapper.emplace("numPayouts", func_table);
+  item_list.push_back("numPayouts");
+  func_table = {
     CreateBatchDlcTransactionsRequest::GetLocalFundPubkeysString,
     CreateBatchDlcTransactionsRequest::SetLocalFundPubkeysString,
     CreateBatchDlcTransactionsRequest::GetLocalFundPubkeysFieldType,
@@ -618,6 +625,7 @@ void CreateBatchDlcTransactionsRequest::ConvertFromStruct(
     const CreateBatchDlcTransactionsRequestStruct& data) {
   local_payouts_.ConvertFromStruct(data.local_payouts);
   remote_payouts_.ConvertFromStruct(data.remote_payouts);
+  num_payouts_.ConvertFromStruct(data.num_payouts);
   local_fund_pubkeys_.ConvertFromStruct(data.local_fund_pubkeys);
   local_final_script_pubkeys_.ConvertFromStruct(
       data.local_final_script_pubkeys);
@@ -648,6 +656,7 @@ CreateBatchDlcTransactionsRequestStruct CreateBatchDlcTransactionsRequest::Conve
   CreateBatchDlcTransactionsRequestStruct result;
   result.local_payouts = local_payouts_.ConvertToStruct();
   result.remote_payouts = remote_payouts_.ConvertToStruct();
+  result.num_payouts = num_payouts_.ConvertToStruct();
   result.local_fund_pubkeys = local_fund_pubkeys_.ConvertToStruct();
   result.local_final_script_pubkeys = local_final_script_pubkeys_.ConvertToStruct();  // NOLINT
   result.remote_fund_pubkeys = remote_fund_pubkeys_.ConvertToStruct();

@@ -8,8 +8,9 @@ function GetRequest(
   remoteChange = 4899999789
 ) {
   return {
-    localPayouts: [TestData.WinAmount, TestData.LoseAmount],
-    remotePayouts: [TestData.LoseAmount, TestData.WinAmount],
+    localPayouts: [TestData.WinAmount, TestData.LoseAmount, TestData.WinAmount, TestData.LoseAmount],
+    remotePayouts: [TestData.LoseAmount, TestData.WinAmount, TestData.LoseAmount, TestData.WinAmount],
+    numPayouts: [2, 2],
     localFundPubkeys: [TestData.LocalFundPubkey, TestData.LocalFundPubkey2],
     remoteFundPubkeys: [TestData.RemoteFundPubkey, TestData.RemoteFundPubkey2],
     localInputAmount: TestData.LocalInputAmount,
@@ -62,6 +63,8 @@ const testCase = [
       cetsHexList: [
         TestData.CetBatchHex,
         TestData.CetBatchHex2,
+        TestData.CetBatchHex,
+        TestData.CetBatchHex2,
       ],
       refundTxHexList: [TestData.RefundBatchTransaction, TestData.RefundBatchTransaction2],
     }
@@ -72,14 +75,14 @@ const errorCase = [
   TestHelper.createTestCase(
     "CreateBatchDlcTransactions invalid Pubkey",
     cfddlcjs.CreateBatchDlcTransactions,
-    { ...GetRequest(), localFundPubkeys: [""] },
-    TestHelper.createIllegalArgumentError("Vector sizes do not match the number of pubkeys or fund_output_serial_ids is not empty and does not match the number of pubkeys.")
+    { ...GetRequest(), localFundPubkeys: ["", ""] },
+    TestHelper.createIllegalArgumentError("Invalid Pubkey data.")
   ),
   TestHelper.createTestCase(
     "CreateBatchDlcTransactions invalid hex string(3 chars)",
     cfddlcjs.CreateBatchDlcTransactions,
-    { ...GetRequest(), localFundPubkeys: ["000"] },
-    TestHelper.createIllegalArgumentError("Vector sizes do not match the number of pubkeys or fund_output_serial_ids is not empty and does not match the number of pubkeys.")
+    { ...GetRequest(), localFundPubkeys: ["000", "000"] },
+    TestHelper.createIllegalArgumentError("hex to byte convert error.")
   ),
 ];
 

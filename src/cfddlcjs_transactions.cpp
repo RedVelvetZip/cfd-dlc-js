@@ -404,6 +404,7 @@ DlcTransactionsApi::CreateBatchDlcTransactions(
     // Check that all std::vector objects have the appropriate length
     size_t num_pubkeys = request.local_fund_pubkeys.size();
     if (
+      request.num_payouts.size() != num_pubkeys ||
       request.remote_fund_pubkeys.size() != num_pubkeys ||
       request.local_final_script_pubkeys.size() != num_pubkeys ||
       request.remote_final_script_pubkeys.size() != num_pubkeys ||
@@ -421,23 +422,29 @@ DlcTransactionsApi::CreateBatchDlcTransactions(
         "pubkeys.");
     }
 
+    if (request.local_payouts.size() != request.remote_payouts.size()) {
+      throw CfdException(
+        CfdError::kCfdIllegalArgumentError,
+        "Local and remote payouts vectors must have the same size.");
+    }
+
     // Check that fund_output_serial_ids is either empty or equal to
     // local_fund_pubkeys size
     bool fund_output_serial_ids_empty = request.fund_output_serial_ids.empty();
 
     std::vector<std::vector<DlcOutcome>> outcomes_list;
-    size_t payouts_per_pubkey = request.local_payouts.size() / num_pubkeys;
+    size_t current_payout_index = 0;
 
     for (size_t i = 0; i < num_pubkeys; ++i) {
       std::vector<DlcOutcome> outcomes;
-      for (size_t j = i * payouts_per_pubkey; j < (i + 1) * payouts_per_pubkey;
-           ++j) {
+      for (size_t j = 0; j < request.num_payouts[i]; ++j) {
         DlcOutcome outcome;
-        outcome.local_payout =
-          Amount::CreateBySatoshiAmount(request.local_payouts[j]);
-        outcome.remote_payout =
-          Amount::CreateBySatoshiAmount(request.remote_payouts[j]);
+        outcome.local_payout = Amount::CreateBySatoshiAmount(
+          request.local_payouts[current_payout_index]);
+        outcome.remote_payout = Amount::CreateBySatoshiAmount(
+          request.remote_payouts[current_payout_index]);
         outcomes.push_back(outcome);
+        current_payout_index++;
       }
       outcomes_list.push_back(outcomes);
     }

@@ -146,6 +146,7 @@ struct AddSignaturesToRefundTxResponseStruct {
 struct CreateBatchDlcTransactionsRequestStruct {
   std::vector<int64_t> local_payouts;                    //!< local_payouts  // NOLINT
   std::vector<int64_t> remote_payouts;                   //!< remote_payouts  // NOLINT
+  std::vector<int64_t> num_payouts;                      //!< num_payouts  // NOLINT
   std::vector<std::string> local_fund_pubkeys;           //!< local_fund_pubkeys  // NOLINT
   std::vector<std::string> local_final_script_pubkeys;   //!< local_final_script_pubkeys  // NOLINT
   std::vector<std::string> remote_fund_pubkeys;          //!< remote_fund_pubkeys  // NOLINT

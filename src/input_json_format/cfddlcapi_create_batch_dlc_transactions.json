@@ -5,6 +5,7 @@
     ":class:comment": "Create Batch Dlc transactions",
     "localPayouts": [0],
     "remotePayouts": [0],
+    "numPayouts": [0],
     "localFundPubkeys": [""],
     "localFinalScriptPubkeys": [""],
     "remoteFundPubkeys": [""],

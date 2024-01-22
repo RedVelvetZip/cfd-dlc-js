@@ -37,6 +37,7 @@ export interface AddSignatureToFundTransactionResponse {
 export interface CreateBatchDlcTransactionsRequest {
     localPayouts: (bigint | number)[];
     remotePayouts: (bigint | number)[];
+    numPayouts: (bigint | number)[];
     localFundPubkeys: string[];
     localFinalScriptPubkeys: string[];
     remoteFundPubkeys: string[];

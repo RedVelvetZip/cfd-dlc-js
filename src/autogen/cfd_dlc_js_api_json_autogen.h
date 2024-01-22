@@ -1948,6 +1948,50 @@ class CreateBatchDlcTransactionsRequest
   }
 
   /**
+   * @brief Get of numPayouts.
+   * @return numPayouts
+   */
+  JsonValueVector<int64_t>& GetNumPayouts() {  // NOLINT
+    return num_payouts_;
+  }
+  /**
+   * @brief Set to numPayouts.
+   * @param[in] num_payouts    setting value.
+   */
+  void SetNumPayouts(  // line separate
+      const JsonValueVector<int64_t>& num_payouts) {  // NOLINT
+    this->num_payouts_ = num_payouts;
+  }
+  /**
+   * @brief Get data type of numPayouts.
+   * @return Data type of numPayouts.
+   */
+  static std::string GetNumPayoutsFieldType() {
+    return "JsonValueVector<int64_t>";  // NOLINT
+  }
+  /**
+   * @brief Get json string of numPayouts field.
+   * @param[in,out] obj     class object
+   * @return JSON string.
+   */
+  static std::string GetNumPayoutsString(  // line separate
+      const CreateBatchDlcTransactionsRequest& obj) {  // NOLINT
+    // Do not set to const, because substitution of member variables
+    // may occur in pre / post processing inside Serialize
+    return obj.num_payouts_.Serialize();
+  }
+  /**
+   * @brief Set json object to numPayouts field.
+   * @param[in,out] obj     class object
+   * @param[in] json_value  JSON object
+   */
+  static void SetNumPayoutsString(  // line separate
+      CreateBatchDlcTransactionsRequest& obj,  // NOLINT
+      const UniValue& json_value) {
+    obj.num_payouts_.DeserializeUniValue(json_value);
+  }
+
+  /**
    * @brief Get of localFundPubkeys.
    * @return localFundPubkeys
    */
@@ -2939,6 +2983,10 @@ class CreateBatchDlcTransactionsRequest
    * @brief JsonAPI(remotePayouts) value
    */
   JsonValueVector<int64_t> remote_payouts_;  // NOLINT
+  /**
+   * @brief JsonAPI(numPayouts) value
+   */
+  JsonValueVector<int64_t> num_payouts_;  // NOLINT
   /**
    * @brief JsonAPI(localFundPubkeys) value
    */
