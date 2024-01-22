@@ -338,7 +338,7 @@ class JsonMappingData {
       } else if (this.type === 'bool') {
         type = 'boolean';
       } else if ((this.type === 'int64_t') || (this.type === 'uint64_t')) {
-        type = (isRequest) ? 'bigint | number' : 'bigint';
+        type = (isRequest) ? '(bigint | number)' : 'bigint';
       } else {
         type = 'number';
       }
