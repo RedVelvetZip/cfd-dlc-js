@@ -1,65 +1,87 @@
 import * as cfddlcjs from "../../index.js";
-import * as CfdUtils from "../cfd_utils";
 import TestHelper from "./TestHelper";
 import * as TestData from "./data/TestData";
+import * as CfdUtils from "../cfd_utils";
+
+function GetRequest(
+  localChange = 4899999789,
+  remoteChange = 4899999789
+) {
+  return {
+    localPayouts: [TestData.WinAmount, TestData.LoseAmount],
+    remotePayouts: [TestData.LoseAmount, TestData.WinAmount],
+    localFundPubkeys: [TestData.LocalFundPubkey, TestData.LocalFundPubkey2],
+    remoteFundPubkeys: [TestData.RemoteFundPubkey, TestData.RemoteFundPubkey2],
+    localInputAmount: TestData.LocalInputAmount,
+    localCollateralAmounts: [TestData.LocalCollateralAmount, TestData.LocalCollateralAmount2],
+    localPayoutSerialIds: [0, 0],
+    localChangeSerialId: 0,
+    remoteInputAmount: TestData.RemoteInputAmount,
+    remoteCollateralAmounts: [TestData.RemoteCollateralAmount, TestData.RemoteCollateralAmount2],
+    remotePayoutSerialIds: [0, 0],
+    remoteChangeSerialId: 0,
+    cetLockTime: 0,
+    fundLockTime: 0,
+    refundLocktimes: [100, 100],
+    localInputs: [
+      {
+        txid: TestData.LocalInputs[0].txid,
+        vout: TestData.LocalInputs[0].vout,
+        maxWitnessLength: 108,
+      },
+    ],
+    localChangeScriptPubkey: CfdUtils.GetAddressScript(TestData.LocalChangeAddress),
+    remoteInputs: [
+      {
+        txid: TestData.RemoteInputs[0].txid,
+        vout: TestData.RemoteInputs[0].vout,
+        maxWitnessLength: 108,
+      },
+    ],
+    remoteChangeScriptPubkey: CfdUtils.GetAddressScript(TestData.RemoteChangeAddress),
+    feeRate: 1,
+    localFinalScriptPubkeys: [
+      CfdUtils.GetAddressScript(TestData.LocalFinalAddress),
+      CfdUtils.GetAddressScript(TestData.LocalFinalAddress2),
+    ],
+    remoteFinalScriptPubkeys: [
+      CfdUtils.GetAddressScript(TestData.RemoteFinalAddress),
+      CfdUtils.GetAddressScript(TestData.RemoteFinalAddress2),
+    ],
+    fundOutputSerialIds: [0, 0],
+  };
+}
 
 const testCase = [
   TestHelper.createTestCase(
-    "CreateDlcTransactions",
+    "CreateBatchDlcTransactions",
     cfddlcjs.CreateBatchDlcTransactions,
+    GetRequest(),
     {
-      localPayouts: [TestData.WinAmount, TestData.LoseAmount],
-      remotePayouts: [TestData.LoseAmount, TestData.WinAmount],
-      localFundPubkeys: [TestData.LocalFundPubkey, TestData.LocalFundPubkey2],
-      remoteFundPubkeys: [TestData.RemoteFundPubkey, TestData.RemoteFundPubkey2],
-      localInputAmount: TestData.LocalInputAmount,
-      localCollateralAmounts: [TestData.LocalCollateralAmount, TestData.LocalCollateralAmount2],
-      localPayoutSerialIds: [0, 0],
-      localChangeSerialId: 0,
-      remoteInputAmount: TestData.RemoteInputAmount,
-      remoteCollateralAmounts: [TestData.RemoteCollateralAmount, TestData.RemoteCollateralAmount2],
-      remotePayoutSerialIds: [0, 0],
-      remoteChangeSerialId: 0,
-      cetLockTime: 0,
-      fundLockTime: 0,
-      refundLocktimes: [100, 100],
-      localInputs: [
-        {
-          txid: TestData.LocalInputs[0].txid,
-          vout: TestData.LocalInputs[0].vout,
-          maxWitnessLength: 108,
-        },
-      ],
-      localChangeScriptPubkey: CfdUtils.GetAddressScript(TestData.LocalChangeAddress),
-      remoteInputs: [
-        {
-          txid: TestData.RemoteInputs[0].txid,
-          vout: TestData.RemoteInputs[0].vout,
-          maxWitnessLength: 108,
-        },
-      ],
-      remoteChangeScriptPubkey: CfdUtils.GetAddressScript(TestData.RemoteChangeAddress),
-      feeRate: 1,
-      localFinalScriptPubkeys: [
-        CfdUtils.GetAddressScript(TestData.LocalFinalAddress),
-        CfdUtils.GetAddressScript(TestData.LocalFinalAddress2),
-      ],
-      remoteFinalScriptPubkeys: [
-        CfdUtils.GetAddressScript(TestData.RemoteFinalAddress),
-        CfdUtils.GetAddressScript(TestData.RemoteFinalAddress2),
-      ],
-    },
-    {
-      fundTxHex: TestData.FundTxHexUnsigned,
+      fundTxHex: TestData.FundTxBatchHex,
       cetsHexList: [
-        TestData.CetHexUnsigned,
-        "02000000019246862ea34db0833bd4bd9e657d61e2e5447d0438f6f6181d1cd329e8cf71c30000000000ffffffff02a0860100000000001600145dedfbf9ea599dd4e3ca6a80b333c472fd0b3f69603bea0b000000001600149652d86bedf43ad264362e6e6eba6eb76450812700000000",
-        TestData.CetHexUnsigned,
-        "02000000019246862ea34db0833bd4bd9e657d61e2e5447d0438f6f6181d1cd329e8cf71c30000000000ffffffff02a0860100000000001600145dedfbf9ea599dd4e3ca6a80b333c472fd0b3f69603bea0b000000001600149652d86bedf43ad264362e6e6eba6eb76450812700000000",
+        TestData.CetBatchHex,
+        TestData.CetBatchHex2,
       ],
-      refundTxHexList: [TestData.RefundTransactionUnsigned, TestData.RefundTransactionUnsigned],
+      refundTxHexList: [TestData.RefundBatchTransaction, TestData.RefundBatchTransaction2],
     }
   ),
 ];
 
-TestHelper.doTest("CreateDlcTransactions", testCase);
+const errorCase = [
+  TestHelper.createTestCase(
+    "CreateBatchDlcTransactions invalid Pubkey",
+    cfddlcjs.CreateBatchDlcTransactions,
+    { ...GetRequest(), localFundPubkeys: [""] },
+    TestHelper.createIllegalArgumentError("Vector sizes do not match the number of pubkeys or fund_output_serial_ids is not empty and does not match the number of pubkeys.")
+  ),
+  TestHelper.createTestCase(
+    "CreateBatchDlcTransactions invalid hex string(3 chars)",
+    cfddlcjs.CreateBatchDlcTransactions,
+    { ...GetRequest(), localFundPubkeys: ["000"] },
+    TestHelper.createIllegalArgumentError("Vector sizes do not match the number of pubkeys or fund_output_serial_ids is not empty and does not match the number of pubkeys.")
+  ),
+];
+
+TestHelper.doTest("CreateBatchDlcTransactions", testCase);
+TestHelper.doTest("CreateBatchDlcTransactions ErrorCase", errorCase);

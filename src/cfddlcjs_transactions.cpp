@@ -401,8 +401,31 @@ DlcTransactionsApi::CreateBatchDlcTransactions(
   const CreateBatchDlcTransactionsRequestStruct &request) {
   auto call_func = [](const CreateBatchDlcTransactionsRequestStruct &request)
     -> CreateBatchDlcTransactionsResponseStruct {
-    std::vector<std::vector<DlcOutcome>> outcomes_list;
+    // Check that all std::vector objects have the appropriate length
     size_t num_pubkeys = request.local_fund_pubkeys.size();
+    if (
+      request.remote_fund_pubkeys.size() != num_pubkeys ||
+      request.local_final_script_pubkeys.size() != num_pubkeys ||
+      request.remote_final_script_pubkeys.size() != num_pubkeys ||
+      request.local_collateral_amounts.size() != num_pubkeys ||
+      request.remote_collateral_amounts.size() != num_pubkeys ||
+      request.refund_locktimes.size() != num_pubkeys ||
+      request.local_payout_serial_ids.size() != num_pubkeys ||
+      request.remote_payout_serial_ids.size() != num_pubkeys ||
+      (!request.fund_output_serial_ids.empty() &&
+       request.fund_output_serial_ids.size() != num_pubkeys)) {
+      throw CfdException(
+        CfdError::kCfdIllegalArgumentError,
+        "Vector sizes do not match the number of pubkeys or "
+        "fund_output_serial_ids is not empty and does not match the number of "
+        "pubkeys.");
+    }
+
+    // Check that fund_output_serial_ids is either empty or equal to
+    // local_fund_pubkeys size
+    bool fund_output_serial_ids_empty = request.fund_output_serial_ids.empty();
+
+    std::vector<std::vector<DlcOutcome>> outcomes_list;
     size_t payouts_per_pubkey = request.local_payouts.size() / num_pubkeys;
 
     for (size_t i = 0; i < num_pubkeys; ++i) {
@@ -436,7 +459,7 @@ DlcTransactionsApi::CreateBatchDlcTransactions(
     std::vector<uint64_t> local_payout_serial_ids;
     std::vector<uint64_t> remote_payout_serial_ids;
 
-    for (size_t i = 0; i < request.local_fund_pubkeys.size(); ++i) {
+    for (size_t i = 0; i < num_pubkeys; ++i) {
       local_fund_pubkeys.push_back(Pubkey(request.local_fund_pubkeys[i]));
       remote_fund_pubkeys.push_back(Pubkey(request.remote_fund_pubkeys[i]));
       local_final_script_pubkeys.push_back(
@@ -448,7 +471,10 @@ DlcTransactionsApi::CreateBatchDlcTransactions(
       remote_collateral_amounts.push_back(
         Amount::CreateBySatoshiAmount(request.remote_collateral_amounts[i]));
       refund_locktimes.push_back(request.refund_locktimes[i]);
-      fund_output_serial_ids.push_back(request.fund_output_serial_ids[i]);
+      // Use zero if fund_output_serial_ids is empty, otherwise use the provided
+      // value
+      fund_output_serial_ids.push_back(
+        fund_output_serial_ids_empty ? 0 : request.fund_output_serial_ids[i]);
       local_payout_serial_ids.push_back(request.local_payout_serial_ids[i]);
       remote_payout_serial_ids.push_back(request.remote_payout_serial_ids[i]);
     }

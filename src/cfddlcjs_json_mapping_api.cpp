@@ -196,6 +196,16 @@ JsonMappingApi::CreateDlcTransactions(const std::string &request_message) {
 }
 
 std::string
+JsonMappingApi::CreateBatchDlcTransactions(const std::string &request_message) {
+  return ExecuteJsonApi<
+    api::json::CreateBatchDlcTransactionsRequest,
+    api::json::CreateBatchDlcTransactionsResponse,
+    api::CreateBatchDlcTransactionsRequestStruct,
+    api::CreateBatchDlcTransactionsResponseStruct>(
+    request_message, DlcTransactionsApi::CreateBatchDlcTransactions);
+}
+
+std::string
 JsonMappingApi::CreateCetAdaptorSignature(const std::string &request_message) {
   return ExecuteJsonApi<
     api::json::CreateCetAdaptorSignatureRequest,
@@ -283,6 +293,8 @@ void JsonMappingApi::LoadFunctions(
     request_map->emplace(
       "CreateFundTransaction", JsonMappingApi::CreateFundTransaction);
     request_map->emplace(
+      "CreateBatchFundTransaction", JsonMappingApi::CreateBatchFundTransaction);
+    request_map->emplace(
       "GetRawFundTxSignature", JsonMappingApi::GetRawFundTxSignature);
     request_map->emplace(
       "AddSignatureToFundTransaction",
@@ -296,6 +308,8 @@ void JsonMappingApi::LoadFunctions(
     request_map->emplace("CreateCet", JsonMappingApi::CreateCet);
     request_map->emplace(
       "CreateDlcTransactions", JsonMappingApi::CreateDlcTransactions);
+    request_map->emplace(
+      "CreateBatchDlcTransactions", JsonMappingApi::CreateBatchDlcTransactions);
     request_map->emplace(
       "CreateCetAdaptorSignature", JsonMappingApi::CreateCetAdaptorSignature);
     request_map->emplace(
