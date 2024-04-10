@@ -4,6 +4,9 @@ install:
 build:
   yarn cmake_all
 
+prebuild:
+  yarn prebuild_all
+
 test:
   yarn test
 
@@ -12,3 +15,6 @@ lint:
 
 convert:
   yarn convert_json
+
+clean:
+  yarn cmake_clean
