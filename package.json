@@ -1,6 +1,6 @@
 {
   "name": "cfd-dlc-js",
-  "version": "0.0.44",
+  "version": "0.0.45",
   "description": "cfd-dlc node.js api",
   "domain": "atomicfinance",
   "main": "index.js",
@@ -116,7 +116,7 @@
     "jest-junit": "^10.0.0",
     "prebuild": "^11.0.0",
     "prettier": "^2.1.1",
-    "ts-jest": "^25.3.0",
+    "ts-jest": "^26.3.0",
     "ts-morph": "^6.0.2",
     "ts-node": "^8.6.2",
     "tslint": "^6.1.3",
