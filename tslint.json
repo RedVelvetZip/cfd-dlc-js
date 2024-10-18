@@ -13,7 +13,9 @@
     "no-console": {
       "severity": "warning",
       "options": ["debug", "info", "log", "time", "timeEnd", "trace"]
-    }
+    },
+    "no-unused-expression": false,
+    "label-position": false
   },
   "jsRules": {
     "max-line-length": {
