@@ -16,7 +16,6 @@
     ]
   },
   "scripts": {
-    "postinstall": "/bin/sh postinstall.sh",
     "install:prod": "prebuild-install --force --verbose && mkdir -p wrap_js/build && cp -r build/* wrap_js/build/ || run-s install_cmake",
     "install_cmake": "run-s cmake_clean cmake_install_configure cmake_compile",
     "prebuild_all": "run-s prebuild_nodejs prebuild_electron",
