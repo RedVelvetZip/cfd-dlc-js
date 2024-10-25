@@ -1,1 +1,0 @@
-if [ ! -f .no-postinstall ]; then npm run install:prod; fi
